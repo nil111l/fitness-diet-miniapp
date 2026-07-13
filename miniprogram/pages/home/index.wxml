@@ -1,0 +1,144 @@
+<view class="page home-page">
+  <view class="home-header">
+    <view>
+      <text class="eyebrow">今日概览</text>
+      <text class="title">热量与记录</text>
+      <text class="subtitle">饮食、运动和体重变化会实时同步到首页。</text>
+    </view>
+    <view wx:if="{{user && goal}}" class="streak-pill">
+      <text class="streak-number">{{dashboard.streak_days || 0}}</text>
+      <text class="streak-label">连续打卡</text>
+    </view>
+  </view>
+
+  <view wx:if="{{!user}}" class="section card empty state-card">
+    <text class="section-title">开始使用</text>
+    <text class="muted-text">登录后记录饮食、运动和体重。</text>
+    <button class="primary-button empty-action" bindtap="goLogin">微信登录</button>
+  </view>
+
+  <view wx:elif="{{!profile}}" class="section card empty state-card">
+    <text class="section-title">完善健康档案</text>
+    <text class="muted-text">填写基础信息后才能生成推荐热量。</text>
+    <button class="primary-button empty-action" bindtap="goProfile">填写健康档案</button>
+  </view>
+
+  <view wx:elif="{{!goal}}" class="section card empty state-card">
+    <text class="section-title">设置目标</text>
+    <text class="muted-text">设置目标后首页会展示热量和营养素进度。</text>
+    <button class="primary-button empty-action" bindtap="goGoal">设置目标</button>
+  </view>
+
+  <block wx:else>
+    <view class="section hero-card">
+      <view class="hero-top">
+        <view>
+          <text class="hero-label">剩余热量</text>
+          <view class="hero-value-row">
+            <text class="hero-value">{{dashboard.remaining_calories || 0}}</text>
+            <text class="hero-unit">kcal</text>
+          </view>
+        </view>
+        <view class="hero-status">
+          <text>{{dashboard.diet_checkin_done ? '已记录饮食' : '待记录饮食'}}</text>
+        </view>
+      </view>
+
+      <view class="hero-meter">
+        <view class="hero-meter-fill" style="width: {{macroProgress.protein || 0}}%;"></view>
+      </view>
+
+      <view class="metric-grid">
+        <view class="metric-pill">
+          <text class="metric-label">推荐</text>
+          <text class="metric-number">{{dashboard.target_calories || goal.daily_calorie_target}}</text>
+        </view>
+        <view class="metric-pill">
+          <text class="metric-label">已摄入</text>
+          <text class="metric-number">{{dashboard.intake_calories || 0}}</text>
+        </view>
+        <view class="metric-pill">
+          <text class="metric-label">运动消耗</text>
+          <text class="metric-number">{{dashboard.exercise_calories || 0}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section card panel-card">
+      <view class="panel-head">
+        <text class="section-title">营养素进度</text>
+        <text class="muted-text">今日目标</text>
+      </view>
+
+      <view class="macro-row">
+        <view class="macro-head">
+          <text>蛋白质</text>
+          <text>{{dashboard.macros.protein || 0}} / {{dashboard.macro_targets.protein_g || 0}}g</text>
+        </view>
+        <view class="progress-track">
+          <view class="progress-fill protein" style="width: {{macroProgress.protein}}%;"></view>
+        </view>
+      </view>
+
+      <view class="macro-row">
+        <view class="macro-head">
+          <text>碳水</text>
+          <text>{{dashboard.macros.carb || 0}} / {{dashboard.macro_targets.carb_g || 0}}g</text>
+        </view>
+        <view class="progress-track">
+          <view class="progress-fill carb" style="width: {{macroProgress.carb}}%;"></view>
+        </view>
+      </view>
+
+      <view class="macro-row">
+        <view class="macro-head">
+          <text>脂肪</text>
+          <text>{{dashboard.macros.fat || 0}} / {{dashboard.macro_targets.fat_g || 0}}g</text>
+        </view>
+        <view class="progress-track">
+          <view class="progress-fill fat" style="width: {{macroProgress.fat}}%;"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section card panel-card">
+      <view class="panel-head">
+        <text class="section-title">今日打卡</text>
+        <text class="muted-text">连续 {{dashboard.streak_days || 0}} 天</text>
+      </view>
+      <view class="checkin-row">
+        <view class="{{dashboard.diet_checkin_done ? 'checkin-chip active' : 'checkin-chip'}}">
+          <text class="chip-dot"></text>
+          <text>饮食</text>
+        </view>
+        <view class="{{dashboard.exercise_checkin_done ? 'checkin-chip active' : 'checkin-chip'}}">
+          <text class="chip-dot"></text>
+          <text>运动</text>
+        </view>
+        <view class="{{dashboard.weight_checkin_done ? 'checkin-chip active' : 'checkin-chip'}}">
+          <text class="chip-dot"></text>
+          <text>体重</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section action-grid">
+      <view class="action-card primary-action" bindtap="goAddDiet">
+        <text class="action-title">记录饮食</text>
+        <text class="action-desc">添加餐次与食材</text>
+      </view>
+      <view class="action-card" bindtap="goExercise">
+        <text class="action-title">记录运动</text>
+        <text class="action-desc">同步消耗热量</text>
+      </view>
+      <view class="action-card" bindtap="goWeight">
+        <text class="action-title">记录体重</text>
+        <text class="action-desc">更新身体趋势</text>
+      </view>
+      <view class="action-card" bindtap="goRecord">
+        <text class="action-title">饮食详情</text>
+        <text class="action-desc">编辑今日记录</text>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,68 @@
+<view class="page">
+  <view class="section">
+    <text class="title">{{mode === 'create' ? '填写健康档案' : '编辑健康档案'}}</text>
+    <text class="subtitle">用于计算基础代谢、推荐热量和营养素目标。</text>
+  </view>
+
+  <view class="card form-card">
+    <view class="field">
+      <text class="label">性别 *</text>
+      <picker range="{{genderOptions}}" range-key="label" value="{{genderIndex}}" data-field="gender" bindchange="handlePicker">
+        <view class="picker-value">{{genderOptions[genderIndex].label}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">出生年月 *</text>
+      <picker mode="date" fields="month" value="{{form.birth_month}}" bindchange="handleBirthMonth">
+        <view class="picker-value">{{form.birth_month || '请选择出生年月'}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">身高 cm *</text>
+      <input class="input" type="digit" placeholder="100-230" value="{{form.height_cm}}" data-field="height_cm" bindinput="handleInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">当前体重 kg *</text>
+      <input class="input" type="digit" placeholder="30-250" value="{{form.current_weight_kg}}" data-field="current_weight_kg" bindinput="handleInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">目标体重 kg *</text>
+      <input class="input" type="digit" placeholder="30-250" value="{{form.target_weight_kg}}" data-field="target_weight_kg" bindinput="handleInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">活动水平 *</text>
+      <picker range="{{activityOptions}}" range-key="label" value="{{activityIndex}}" data-field="activity_level" bindchange="handlePicker">
+        <view class="picker-value">{{activityOptions[activityIndex].label}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">健身目标 *</text>
+      <picker range="{{goalOptions}}" range-key="label" value="{{goalIndex}}" data-field="goal_type" bindchange="handlePicker">
+        <view class="picker-value">{{goalOptions[goalIndex].label}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">饮食偏好</text>
+      <input class="input" placeholder="如清淡、低脂、高蛋白" value="{{form.diet_preference}}" data-field="diet_preference" bindinput="handleInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">忌口或过敏</text>
+      <textarea class="textarea" placeholder="如乳糖不耐、花生过敏" value="{{form.allergies}}" data-field="allergies" bindinput="handleInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">每日饮水目标 ml</text>
+      <input class="input" type="number" placeholder="可选，如 2000" value="{{form.water_target_ml}}" data-field="water_target_ml" bindinput="handleInput" />
+    </view>
+
+    <button class="primary-button submit-button" loading="{{loading}}" bindtap="submitProfile">保存并设置目标</button>
+  </view>
+</view>

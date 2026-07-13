@@ -1,0 +1,23 @@
+<view class="page login-page">
+  <view class="section">
+    <text class="title">微信登录</text>
+    <text class="subtitle">登录后填写健康档案并设置目标，系统会生成推荐热量。</text>
+  </view>
+
+  <view class="card login-card">
+    <text class="login-title">开始使用健身饮食</text>
+    <text class="login-desc">我们只会使用微信身份识别账号，并保存你主动填写的健康档案。</text>
+
+    <view class="agreement-row" bindtap="toggleAgreement">
+      <view class="checkbox {{agreed ? 'checked' : ''}}"></view>
+      <view class="agreement-text">
+        <text>我已阅读并同意</text>
+        <text class="link" catchtap="openAgreement">《用户协议》</text>
+        <text>和</text>
+        <text class="link" catchtap="openPrivacy">《隐私政策》</text>
+      </view>
+    </view>
+
+    <button class="primary-button login-button" loading="{{loading}}" bindtap="handleLogin">微信登录</button>
+  </view>
+</view>

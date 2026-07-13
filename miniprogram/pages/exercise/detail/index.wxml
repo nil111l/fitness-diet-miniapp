@@ -1,0 +1,26 @@
+<view class="page">
+  <view class="section header-row">
+    <view>
+      <text class="title">运动记录</text>
+      <text class="subtitle">{{date}} · 今日消耗 {{totalCalories}} kcal</text>
+    </view>
+    <button class="small-button" bindtap="addRecord">新增</button>
+  </view>
+
+  <view wx:if="{{!records.length}}" class="section card empty">
+    <text>暂无运动记录</text>
+    <button class="primary-button empty-action" bindtap="addRecord">添加运动</button>
+  </view>
+
+  <view wx:else class="section list">
+    <block wx:for="{{records}}" wx:key="_id">
+      <view class="card list-card exercise-card">
+        <view data-record="{{item}}" bindtap="editRecord">
+          <text class="list-title">{{item.exercise_name}}</text>
+          <text class="muted-text">{{item.exercise_type}} · {{item.duration_min}} 分钟 · {{item.calorie_burned}} kcal</text>
+        </view>
+        <button class="danger-button" data-record="{{item}}" bindtap="deleteRecord">删除</button>
+      </view>
+    </block>
+  </view>
+</view>

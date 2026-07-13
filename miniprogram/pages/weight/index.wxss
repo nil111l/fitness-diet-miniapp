@@ -1,0 +1,3 @@
+.metric-value {
+  margin-top: 16rpx;
+}

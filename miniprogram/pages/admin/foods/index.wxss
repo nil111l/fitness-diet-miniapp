@@ -1,0 +1,31 @@
+.nutri-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14rpx;
+}
+
+.search-row {
+  display: flex;
+  gap: 14rpx;
+  margin: 24rpx 0;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.search-btn {
+  width: 132rpx;
+}
+
+.admin-card {
+  padding: 24rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+}
+
+.button-line {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 18rpx;
+}

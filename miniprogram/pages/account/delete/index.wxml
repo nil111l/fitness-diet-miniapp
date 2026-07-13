@@ -1,0 +1,20 @@
+<view class="page delete-page">
+  <view class="warning-card">
+    <text class="warning-title">注销账号前请确认</text>
+    <text class="warning-desc">注销后，你的账号状态将变为已注销。健康档案、饮食记录、运动记录、体重记录和打卡记录会被删除或匿名化。</text>
+  </view>
+
+  <view class="card rule-card">
+    <text class="rule-title">注销影响</text>
+    <text class="rule-item">账号将不能继续使用当前登录身份。</text>
+    <text class="rule-item">再次进入小程序需要重新登录并建立档案。</text>
+    <text class="rule-item">后台不会展示你的详细健康数据。</text>
+  </view>
+
+  <view class="confirm-row" bindtap="toggleCheck">
+    <view class="check-box {{checked ? 'checked' : ''}}"></view>
+    <text>我已了解注销影响，并确认继续</text>
+  </view>
+
+  <button class="danger-button delete-submit" bindtap="requestDelete">注销账号</button>
+</view>

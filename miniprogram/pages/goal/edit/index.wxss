@@ -1,0 +1,58 @@
+.summary-card,
+.form-card,
+.result-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.summary-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.summary-text {
+  display: block;
+  color: var(--color-muted);
+  font-size: 26rpx;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.label {
+  color: var(--color-text);
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.input,
+.picker-value {
+  width: 100%;
+  min-height: 78rpx;
+  padding: 18rpx 20rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  color: var(--color-text);
+  font-size: 28rpx;
+}
+
+.submit-button {
+  margin-top: 12rpx;
+}
+
+.result-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--color-border);
+  color: var(--color-text);
+  font-size: 28rpx;
+}

@@ -1,0 +1,17 @@
+<view class="page">
+  <view class="search-row">
+    <input class="input search-input" value="{{keyword}}" placeholder="搜索昵称或用户 ID" bindinput="inputKeyword" />
+    <button class="small-button search-btn" bindtap="loadUsers">搜索</button>
+  </view>
+  <view wx:if="{{users.length === 0}}" class="empty">暂无用户</view>
+  <view class="list">
+    <view class="user-card" wx:for="{{users}}" wx:key="_id">
+      <view>
+        <text class="list-title">{{item.nick_name}}</text>
+        <text class="muted-text">ID：{{item._id}}</text>
+        <text class="muted-text">状态：{{item.status === 'disabled' ? '已禁用' : item.status === 'cancelled' ? '已注销' : '正常'}}</text>
+      </view>
+      <button wx:if="{{item.status !== 'cancelled'}}" class="{{item.status === 'disabled' ? 'small-button' : 'danger-button'}}" data-user="{{item}}" bindtap="toggleStatus">{{item.status === 'disabled' ? '恢复' : '禁用'}}</button>
+    </view>
+  </view>
+</view>

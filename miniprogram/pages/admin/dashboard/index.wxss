@@ -1,0 +1,55 @@
+.admin-head {
+  margin-bottom: 24rpx;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18rpx;
+}
+
+.metric-card {
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 12rpx 32rpx rgba(24, 54, 40, 0.06);
+}
+
+.metric-number {
+  display: block;
+  color: #0f7f4d;
+  font-size: 44rpx;
+  font-weight: 800;
+}
+
+.metric-label {
+  display: block;
+  margin-top: 8rpx;
+  color: #75817b;
+  font-size: 24rpx;
+}
+
+.menu-card {
+  padding: 8rpx 26rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+}
+
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 94rpx;
+  border-bottom: 1rpx solid #edf2ef;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.menu-row:last-child {
+  border-bottom: 0;
+}
+
+.arrow {
+  color: #a1aca6;
+  font-size: 40rpx;
+}

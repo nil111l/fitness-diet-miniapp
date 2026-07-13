@@ -1,0 +1,14 @@
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+
+.exercise-card {
+  align-items: flex-start;
+}
+
+.empty-action {
+  margin-top: 24rpx;
+}

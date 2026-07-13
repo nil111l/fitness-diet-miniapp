@@ -1,0 +1,27 @@
+.doc-page {
+  padding-top: 40rpx;
+}
+
+.doc-card {
+  margin-top: 28rpx;
+}
+
+.doc-title {
+  display: block;
+  margin-top: 24rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.doc-title:first-child {
+  margin-top: 0;
+}
+
+.doc-text {
+  display: block;
+  margin-top: 12rpx;
+  color: var(--color-muted);
+  font-size: 26rpx;
+  line-height: 1.7;
+}

@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/record/index",
+    "pages/stats/index",
+    "pages/me/index",
+    "pages/login/index",
+    "pages/agreement/index",
+    "pages/privacy/index",
+    "pages/profile/edit/index",
+    "pages/goal/edit/index",
+    "pages/diet/detail/index",
+    "pages/diet/add/index",
+    "pages/food/search/index",
+    "pages/food/custom/index",
+    "pages/food/my/index",
+    "pages/exercise/detail/index",
+    "pages/exercise/add/index",
+    "pages/weight/index",
+    "pages/feedback/index",
+    "pages/settings/index",
+    "pages/account/delete/index",
+    "pages/admin/login/index",
+    "pages/admin/dashboard/index",
+    "pages/admin/users/index",
+    "pages/admin/categories/index",
+    "pages/admin/foods/index",
+    "pages/admin/feedback/index"
+  ],
+  "window": {
+    "backgroundColor": "#F5F7F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F5F7F6",
+    "navigationBarTitleText": "健身饮食",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A8580",
+    "selectedColor": "#16A05D",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/record/index",
+        "text": "记录",
+        "iconPath": "images/icons/goods.png",
+        "selectedIconPath": "images/icons/goods-active.png"
+      },
+      {
+        "pagePath": "pages/stats/index",
+        "text": "数据",
+        "iconPath": "images/icons/business.png",
+        "selectedIconPath": "images/icons/business-active.png"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的",
+        "iconPath": "images/icons/usercenter.png",
+        "selectedIconPath": "images/icons/usercenter-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

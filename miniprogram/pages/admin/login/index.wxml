@@ -1,0 +1,7 @@
+<view class="page admin-page">
+  <view class="admin-hero">
+    <text class="admin-title">基础管理后台</text>
+    <text class="admin-desc">维护食材、用户状态和反馈处理。第一版不展示用户详细健康数据。</text>
+  </view>
+  <button class="primary-button" loading="{{loading}}" bindtap="login">管理员登录</button>
+</view>

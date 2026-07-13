@@ -1,0 +1,38 @@
+<view class="page feedback-page">
+  <view class="section page-head">
+    <text class="title">意见反馈</text>
+    <text class="subtitle">告诉我们遇到的问题或建议，管理员会在后台处理。</text>
+  </view>
+
+  <view class="card form-card">
+    <view class="field">
+      <text class="label">反馈类型</text>
+      <picker range="{{types}}" value="{{typeIndex}}" bindchange="changeType">
+        <view class="picker-value">{{types[typeIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">反馈内容</text>
+      <textarea class="textarea" maxlength="500" value="{{content}}" placeholder="请描述你遇到的问题或建议" bindinput="inputContent"></textarea>
+    </view>
+
+    <view class="field">
+      <text class="label">图片附件</text>
+      <view class="image-grid">
+        <view class="image-box" wx:for="{{images}}" wx:key="*this">
+          <image src="{{item}}" mode="aspectFill"></image>
+          <text class="remove-image" data-index="{{index}}" bindtap="removeImage">×</text>
+        </view>
+        <view wx:if="{{images.length < 3}}" class="add-image" bindtap="chooseImage">+</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">联系方式</text>
+      <input class="input" value="{{contact}}" placeholder="选填，便于我们回复你" bindinput="inputContact" />
+    </view>
+  </view>
+
+  <button class="primary-button submit-button" bindtap="submit">提交反馈</button>
+</view>

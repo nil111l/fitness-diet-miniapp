@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="section">
+    <text class="title">目标设置</text>
+    <text class="subtitle">根据健康档案计算每日推荐热量和三大营养素目标。</text>
+  </view>
+
+  <view wx:if="{{profile}}" class="section card summary-card">
+    <text class="summary-title">当前档案</text>
+    <text class="summary-text">身高 {{profile.height_cm}} cm · 体重 {{profile.current_weight_kg}} kg</text>
+  </view>
+
+  <view class="section card form-card">
+    <view class="field">
+      <text class="label">健身目标 *</text>
+      <picker range="{{goalOptions}}" range-key="label" value="{{goalIndex}}" bindchange="handleGoalPicker">
+        <view class="picker-value">{{goalOptions[goalIndex].label}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">目标体重 kg *</text>
+      <input class="input" type="digit" placeholder="30-250" value="{{form.target_weight_kg}}" bindinput="handleInput" />
+    </view>
+
+    <button class="primary-button submit-button" loading="{{loading}}" bindtap="submitGoal">生成推荐目标</button>
+  </view>
+
+  <view wx:if="{{result}}" class="section card result-card">
+    <text class="summary-title">推荐结果</text>
+    <view class="result-row">
+      <text>每日热量</text>
+      <text>{{result.daily_calorie_target}} kcal</text>
+    </view>
+    <view class="result-row">
+      <text>蛋白质</text>
+      <text>{{result.macro_targets.protein_g}} g</text>
+    </view>
+    <view class="result-row">
+      <text>脂肪</text>
+      <text>{{result.macro_targets.fat_g}} g</text>
+    </view>
+    <view class="result-row">
+      <text>碳水</text>
+      <text>{{result.macro_targets.carb_g}} g</text>
+    </view>
+  </view>
+</view>

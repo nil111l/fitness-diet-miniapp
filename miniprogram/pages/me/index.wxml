@@ -1,0 +1,43 @@
+<view class="page me-page">
+  <view class="profile-hero">
+    <view class="profile-main">
+      <image class="avatar" src="{{user && user.avatar_url ? user.avatar_url : '/images/avatar.png'}}" mode="aspectFill"></image>
+      <view class="profile-copy">
+        <text class="hello">{{user ? user.nick_name || '健康用户' : '未登录用户'}}</text>
+        <text class="tagline">{{user ? '保持记录，看到身体的变化' : '登录后同步健康档案与记录'}}</text>
+      </view>
+      <button wx:if="{{!user}}" class="login-chip" bindtap="goLogin">登录</button>
+    </view>
+
+    <view class="goal-card">
+      <view>
+        <text class="goal-label">当前目标</text>
+        <text class="goal-title">{{goalName}}</text>
+      </view>
+      <view class="goal-stat">
+        <text class="goal-number">{{streakDays}}</text>
+        <text class="goal-unit">连续打卡</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section quick-grid">
+    <view class="quick-card" wx:for="{{quickActions}}" wx:key="title" bindtap="goPage" data-url="{{item.url}}">
+      <view class="quick-icon">{{index + 1}}</view>
+      <text class="quick-title">{{item.title}}</text>
+      <text class="quick-desc">{{item.desc}}</text>
+    </view>
+  </view>
+
+  <view class="section menu-card">
+    <view class="menu-row" wx:for="{{menuItems}}" wx:key="title" bindtap="goPage" data-url="{{item.url}}">
+      <text class="menu-title">{{item.title}}</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="section action-card" wx:if="{{user}}">
+    <button class="secondary-button" bindtap="logout">退出登录</button>
+    <button class="danger-button wide-danger" bindtap="goDeleteAccount">注销账号</button>
+  </view>
+</view>

@@ -1,0 +1,27 @@
+<view class="page">
+  <view class="card form-card">
+    <view class="field">
+      <text class="label">分类名称</text>
+      <input class="input" value="{{form.name}}" placeholder="如 主食谷物" bindinput="inputName" />
+    </view>
+    <view class="field">
+      <text class="label">排序</text>
+      <input class="input" type="number" value="{{form.sort_order}}" placeholder="数字越小越靠前" bindinput="inputSort" />
+    </view>
+    <button class="primary-button" bindtap="save">{{form._id ? '保存分类' : '新增分类'}}</button>
+  </view>
+
+  <view class="list section">
+    <view class="admin-card" wx:for="{{categories}}" wx:key="_id">
+      <view>
+        <text class="list-title">{{item.name}}</text>
+        <text class="muted-text">排序：{{item.sort_order || 0}}　状态：{{item.status === 'inactive' ? '已下架' : '上架中'}}</text>
+      </view>
+      <view class="button-line">
+        <button class="small-button" data-item="{{item}}" bindtap="edit">编辑</button>
+        <button class="small-button" data-item="{{item}}" bindtap="toggle">{{item.status === 'inactive' ? '上架' : '下架'}}</button>
+        <button class="danger-button" data-item="{{item}}" bindtap="remove">删除</button>
+      </view>
+    </view>
+  </view>
+</view>

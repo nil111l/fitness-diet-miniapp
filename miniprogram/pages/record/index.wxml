@@ -1,0 +1,29 @@
+<view class="page">
+  <view class="section">
+    <text class="title">记录</text>
+    <text class="subtitle">记录饮食、运动和体重，首页与数据页会自动同步。</text>
+  </view>
+
+  <view class="section list">
+    <view class="card record-card" bindtap="goDietDetail">
+      <text class="record-title">今日饮食</text>
+      <text class="record-desc">查看、编辑、删除今日饮食，支持复制昨日饮食。</text>
+    </view>
+    <view class="card record-card" bindtap="goFoodSearch">
+      <text class="record-title">添加饮食</text>
+      <text class="record-desc">添加到早餐、午餐、晚餐或加餐。</text>
+    </view>
+    <view class="card record-card" bindtap="goExercise">
+      <text class="record-title">运动记录</text>
+      <text class="record-desc">新增、编辑或删除运动记录。</text>
+    </view>
+    <view class="card record-card" bindtap="goWeight">
+      <text class="record-title">今日体重</text>
+      <text class="record-desc">保存或更新今天的体重记录。</text>
+    </view>
+    <view class="card record-card" bindtap="goCustomFood">
+      <text class="record-title">自定义食物</text>
+      <text class="record-desc">创建常用食物，用于饮食记录。</text>
+    </view>
+  </view>
+</view>

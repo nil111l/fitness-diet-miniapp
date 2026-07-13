@@ -1,0 +1,256 @@
+.home-page {
+  padding-top: 26rpx;
+}
+
+.home-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-bottom: 28rpx;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 8rpx;
+  color: var(--color-primary-dark);
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.streak-pill {
+  flex: 0 0 auto;
+  min-width: 132rpx;
+  padding: 14rpx 18rpx;
+  border: 1rpx solid rgba(22, 160, 93, 0.18);
+  border-radius: var(--radius-lg);
+  background: rgba(22, 160, 93, 0.08);
+  text-align: center;
+}
+
+.streak-number {
+  display: block;
+  color: var(--color-primary-dark);
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.streak-label {
+  display: block;
+  margin-top: 2rpx;
+  color: var(--color-muted);
+  font-size: 20rpx;
+}
+
+.state-card {
+  text-align: left;
+}
+
+.hero-card {
+  overflow: hidden;
+  padding: 34rpx;
+  border-radius: var(--radius-lg);
+  background: #123d2a;
+  color: #ffffff;
+  box-shadow: 0 18rpx 44rpx rgba(18, 61, 42, 0.18);
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.hero-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 24rpx;
+}
+
+.hero-value-row {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 8rpx;
+}
+
+.hero-value {
+  color: #ffffff;
+  font-size: 78rpx;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.hero-unit {
+  margin-left: 10rpx;
+  margin-bottom: 10rpx;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 24rpx;
+}
+
+.hero-status {
+  align-self: flex-start;
+  padding: 10rpx 16rpx;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 22rpx;
+}
+
+.hero-meter {
+  height: 10rpx;
+  margin-top: 30rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.hero-meter-fill {
+  height: 100%;
+  border-radius: 999rpx;
+  background: #62d394;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14rpx;
+  margin-top: 24rpx;
+}
+
+.metric-pill {
+  min-height: 106rpx;
+  padding: 18rpx 16rpx;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.metric-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 22rpx;
+}
+
+.metric-number {
+  display: block;
+  margin-top: 8rpx;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.panel-card {
+  padding: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(31, 45, 38, 0.04);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.macro-row {
+  margin-top: 24rpx;
+}
+
+.macro-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+  color: var(--color-text);
+  font-size: 26rpx;
+}
+
+.progress-track {
+  height: 14rpx;
+  border-radius: 999rpx;
+  background: #edf2ef;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999rpx;
+}
+
+.progress-fill.protein {
+  background: var(--color-primary);
+}
+
+.progress-fill.carb {
+  background: var(--color-accent-blue);
+}
+
+.progress-fill.fat {
+  background: var(--color-warning);
+}
+
+.checkin-row {
+  display: flex;
+  gap: 14rpx;
+  margin-top: 22rpx;
+}
+
+.checkin-chip {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 18rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+  font-size: 24rpx;
+}
+
+.checkin-chip.active {
+  border-color: rgba(22, 160, 93, 0.24);
+  background: rgba(22, 160, 93, 0.08);
+  color: var(--color-primary-dark);
+}
+
+.chip-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+}
+
+.action-card {
+  min-height: 132rpx;
+  padding: 24rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(31, 45, 38, 0.04);
+}
+
+.primary-action {
+  border-color: rgba(22, 160, 93, 0.22);
+  background: rgba(22, 160, 93, 0.07);
+}
+
+.action-title {
+  display: block;
+  color: var(--color-text);
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.action-desc {
+  display: block;
+  margin-top: 10rpx;
+  color: var(--color-muted);
+  font-size: 23rpx;
+  line-height: 1.35;
+}
+
+.empty-action {
+  margin-top: 24rpx;
+}

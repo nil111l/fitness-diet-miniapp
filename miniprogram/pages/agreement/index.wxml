@@ -1,0 +1,11 @@
+<view class="page doc-page">
+  <text class="title">用户协议</text>
+  <view class="card doc-card">
+    <text class="doc-title">服务说明</text>
+    <text class="doc-text">本小程序用于记录饮食、运动、体重和基础健康目标，第一版仅提供个人记录与热量参考。</text>
+    <text class="doc-title">用户责任</text>
+    <text class="doc-text">请填写真实、合理的健康档案信息。推荐热量仅用于日常饮食管理参考，不替代医生、营养师或其他专业意见。</text>
+    <text class="doc-title">使用边界</text>
+    <text class="doc-text">第一版不提供会员、支付、AI 识别、社区、教练咨询、课程购买或智能设备同步服务。</text>
+  </view>
+</view>

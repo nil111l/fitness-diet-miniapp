@@ -1,0 +1,16 @@
+<view class="page">
+  <view class="section">
+    <text class="title">我的食物</text>
+    <text class="subtitle">从自定义食物快速添加饮食。</text>
+  </view>
+  <button class="primary-button section" bindtap="goCustom">新建自定义食物</button>
+  <view class="section list">
+    <view wx:if="{{!foods.length}}" class="card empty">暂无自定义食物</view>
+    <block wx:for="{{foods}}" wx:key="_id">
+      <view class="card food-card" data-food="{{item}}" bindtap="addFood">
+        <text class="food-name">{{item.name}}</text>
+        <text class="food-desc">{{item.calorie_per_100g}} kcal/100g</text>
+      </view>
+    </block>
+  </view>
+</view>

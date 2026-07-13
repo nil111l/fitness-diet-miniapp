@@ -1,0 +1,24 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.record-card {
+  min-height: 132rpx;
+}
+
+.record-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.record-desc {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-muted);
+  line-height: 1.5;
+}

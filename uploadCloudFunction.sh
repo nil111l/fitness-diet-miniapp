@@ -1,0 +1,10 @@
+${installPath} cloud functions deploy --e ${envId} --n auth --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n profile --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n goal --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n food --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n diet --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n stats --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n exercise --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n body --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n feedback --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n admin --r --project ${projectPath}

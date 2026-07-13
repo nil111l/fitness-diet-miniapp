@@ -1,0 +1,55 @@
+<view class="page">
+  <view class="section">
+    <text class="title">{{mode === 'edit' ? '编辑饮食' : '添加饮食'}}</text>
+    <text class="subtitle">输入重量后自动计算总热量和营养素。</text>
+  </view>
+
+  <view wx:if="{{food}}" class="section card food-card">
+    <view>
+      <text class="food-name">{{food.name}}</text>
+      <text class="food-desc">{{food.calorie_per_100g}} kcal/100g · 蛋白 {{food.protein_per_100g}}g · 碳水 {{food.carb_per_100g}}g · 脂肪 {{food.fat_per_100g}}g</text>
+    </view>
+    <button class="small-button" bindtap="changeFood">更换</button>
+  </view>
+
+  <view class="section card form-card">
+    <view class="field">
+      <text class="label">餐次 *</text>
+      <picker range="{{mealOptions}}" range-key="label" value="{{mealIndex}}" bindchange="handleMeal">
+        <view class="picker-value">{{mealOptions[mealIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">重量 g *</text>
+      <input class="input" type="digit" value="{{form.amount_g}}" data-field="amount_g" bindinput="handleInput" placeholder="如 150" />
+    </view>
+    <view class="field">
+      <text class="label">备注</text>
+      <input class="input" value="{{form.note}}" data-field="note" bindinput="handleInput" placeholder="可选" />
+    </view>
+  </view>
+
+  <view class="section card result-card">
+    <text class="result-title">本次合计</text>
+    <view class="result-grid">
+      <view>
+        <text class="item-label">热量</text>
+        <text class="item-value">{{totals.calorie}}</text>
+      </view>
+      <view>
+        <text class="item-label">蛋白质</text>
+        <text class="item-value">{{totals.protein}}g</text>
+      </view>
+      <view>
+        <text class="item-label">碳水</text>
+        <text class="item-value">{{totals.carb}}g</text>
+      </view>
+      <view>
+        <text class="item-label">脂肪</text>
+        <text class="item-value">{{totals.fat}}g</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="primary-button" loading="{{loading}}" bindtap="saveRecord">保存饮食</button>
+</view>

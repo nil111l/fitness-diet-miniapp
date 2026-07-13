@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="section header-row">
+    <view>
+      <text class="title">今日饮食</text>
+      <text class="subtitle">{{date}} · 添加后自动完成饮食打卡</text>
+    </view>
+    <button class="small-button" bindtap="copyYesterday">复制昨日</button>
+  </view>
+
+  <view class="section card summary-card">
+    <view>
+      <text class="item-label">热量</text>
+      <text class="item-value">{{summary.calorie}}</text>
+    </view>
+    <view>
+      <text class="item-label">蛋白质</text>
+      <text class="item-value">{{summary.protein}}g</text>
+    </view>
+    <view>
+      <text class="item-label">碳水</text>
+      <text class="item-value">{{summary.carb}}g</text>
+    </view>
+    <view>
+      <text class="item-label">脂肪</text>
+      <text class="item-value">{{summary.fat}}g</text>
+    </view>
+  </view>
+
+  <block wx:for="{{meals}}" wx:key="value">
+    <view class="section card meal-card">
+      <view class="meal-head">
+        <text class="meal-title">{{item.label}}</text>
+        <button class="small-button" data-meal="{{item.value}}" bindtap="goAdd">添加</button>
+      </view>
+      <view wx:if="{{!item.records.length}}" class="empty mini-empty">暂无记录</view>
+      <block wx:for="{{item.records}}" wx:key="_id" wx:for-item="record">
+        <view class="record-row">
+          <view data-record="{{record}}" bindtap="editRecord">
+            <text class="record-name">{{record.food_name}} · {{record.amount_g}}g</text>
+            <text class="record-desc">{{record.calorie}} kcal · 蛋白 {{record.protein}}g · 碳水 {{record.carb}}g · 脂肪 {{record.fat}}g</text>
+          </view>
+          <button class="delete-button" data-record="{{record}}" bindtap="deleteRecord">删除</button>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>

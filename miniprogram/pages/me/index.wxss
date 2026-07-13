@@ -1,0 +1,182 @@
+.me-page {
+  padding-bottom: 72rpx;
+}
+
+.profile-hero {
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #ffffff;
+  box-shadow: 0 18rpx 44rpx rgba(24, 54, 40, 0.08);
+}
+
+.profile-main {
+  display: flex;
+  align-items: center;
+  gap: 22rpx;
+}
+
+.avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 56rpx;
+  background: #e8f1ec;
+}
+
+.profile-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.hello {
+  display: block;
+  color: #15241c;
+  font-size: 36rpx;
+  font-weight: 800;
+}
+
+.tagline {
+  display: block;
+  margin-top: 8rpx;
+  color: #728079;
+  font-size: 24rpx;
+}
+
+.login-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112rpx;
+  height: 58rpx;
+  border-radius: 999rpx;
+  background: #0f6b43;
+  color: #ffffff;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.goal-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28rpx;
+  padding: 30rpx;
+  border-radius: 24rpx;
+  background: #123c2b;
+  color: #ffffff;
+}
+
+.goal-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 24rpx;
+}
+
+.goal-title {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 40rpx;
+  font-weight: 800;
+}
+
+.goal-stat {
+  min-width: 150rpx;
+  text-align: right;
+}
+
+.goal-number {
+  display: block;
+  font-size: 48rpx;
+  font-weight: 800;
+}
+
+.goal-unit {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 22rpx;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18rpx;
+}
+
+.quick-card {
+  min-height: 174rpx;
+  padding: 24rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+  box-shadow: 0 12rpx 32rpx rgba(24, 54, 40, 0.06);
+}
+
+.quick-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 16rpx;
+  background: #e7f5ee;
+  color: #0f7f4d;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.quick-title {
+  display: block;
+  margin-top: 18rpx;
+  color: #17251e;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.quick-desc {
+  display: block;
+  margin-top: 8rpx;
+  color: #7a8580;
+  font-size: 22rpx;
+  line-height: 1.4;
+}
+
+.menu-card,
+.action-card {
+  padding: 8rpx 26rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+  box-shadow: 0 12rpx 32rpx rgba(24, 54, 40, 0.06);
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 92rpx;
+  border-bottom: 1rpx solid #edf2ef;
+}
+
+.menu-row:last-child {
+  border-bottom: 0;
+}
+
+.menu-title {
+  color: #1f2d26;
+  font-size: 28rpx;
+  font-weight: 650;
+}
+
+.menu-arrow {
+  color: #a0aaa5;
+  font-size: 40rpx;
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  padding: 24rpx;
+}
+
+.wide-danger {
+  width: 100%;
+  min-height: 80rpx;
+}

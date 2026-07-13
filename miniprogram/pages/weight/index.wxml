@@ -1,0 +1,32 @@
+<view class="page">
+  <view class="section">
+    <text class="title">今日体重</text>
+    <text class="subtitle">同一天重复提交会更新原记录。</text>
+  </view>
+
+  <view wx:if="{{existing}}" class="section card">
+    <text class="section-title">今日已记录</text>
+    <text class="metric-value">{{existing.weight_kg}} kg</text>
+    <text class="muted-text">{{existing.body_fat_rate ? '体脂 ' + existing.body_fat_rate + '%' : '未填写体脂率'}}</text>
+  </view>
+
+  <view class="section card form-card">
+    <view class="field">
+      <text class="label">日期</text>
+      <view class="picker-value">{{form.record_date}}</view>
+    </view>
+    <view class="field">
+      <text class="label">体重 kg *</text>
+      <input class="input" type="digit" value="{{form.weight_kg}}" data-field="weight_kg" bindinput="handleInput" placeholder="30-250" />
+    </view>
+    <view class="field">
+      <text class="label">体脂率 %</text>
+      <input class="input" type="digit" value="{{form.body_fat_rate}}" data-field="body_fat_rate" bindinput="handleInput" placeholder="可选" />
+    </view>
+    <view class="field">
+      <text class="label">备注</text>
+      <input class="input" value="{{form.note}}" data-field="note" bindinput="handleInput" placeholder="可选" />
+    </view>
+    <button class="primary-button" loading="{{loading}}" bindtap="saveRecord">{{existing ? '更新今日体重' : '保存今日体重'}}</button>
+  </view>
+</view>

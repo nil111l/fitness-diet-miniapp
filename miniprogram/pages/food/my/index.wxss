@@ -1,0 +1,1 @@
+.list{display:flex;flex-direction:column;gap:16rpx}.food-name{display:block;font-size:30rpx;font-weight:600}.food-desc{display:block;margin-top:8rpx;color:var(--color-muted);font-size:24rpx}

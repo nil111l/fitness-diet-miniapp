@@ -1,0 +1,11 @@
+.admin-card {
+  padding: 24rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+}
+
+.button-line {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 18rpx;
+}

@@ -1,0 +1,100 @@
+.food-search-page {
+  padding-bottom: 72rpx;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 80rpx;
+  padding: 0 22rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: 16rpx;
+  background: #ffffff;
+  color: var(--color-text);
+  font-size: 28rpx;
+}
+
+.search-button,
+.filter-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  min-height: 80rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.search-button {
+  width: 260rpx;
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16rpx;
+}
+
+.action-picker {
+  display: block;
+  width: 100%;
+}
+
+.filter-button {
+  width: 100%;
+  border: 1rpx solid var(--color-border);
+  background: #ffffff;
+  color: var(--color-text);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.food-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  min-height: 124rpx;
+  border: 0;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 28rpx rgba(24, 54, 40, 0.06);
+}
+
+.food-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.food-name {
+  display: block;
+  color: #1f2d26;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.food-desc {
+  display: block;
+  margin-top: 8rpx;
+  color: var(--color-muted);
+  font-size: 24rpx;
+}
+
+.food-add {
+  color: var(--color-primary-dark);
+  font-size: 26rpx;
+  font-weight: 800;
+}

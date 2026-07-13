@@ -1,0 +1,20 @@
+<view class="page admin-page">
+  <view class="admin-head">
+    <text class="title">数据概览</text>
+    <text class="subtitle">只展示运营所需基础指标，不展示用户详细健康数据。</text>
+  </view>
+
+  <view class="metric-grid">
+    <view class="metric-card" wx:for="{{metrics}}" wx:key="label">
+      <text class="metric-number">{{item.value}}</text>
+      <text class="metric-label">{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="section menu-card">
+    <view class="menu-row" wx:for="{{entries}}" wx:key="title" bindtap="goPage" data-url="{{item.url}}">
+      <text>{{item.title}}</text>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+</view>

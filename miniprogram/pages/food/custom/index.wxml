@@ -1,0 +1,14 @@
+<view class="page">
+  <view class="section">
+    <text class="title">自定义食物</text>
+    <text class="subtitle">填写每 100g 的热量和三大营养素。</text>
+  </view>
+  <view class="card form-card">
+    <view class="field"><text class="label">名称 *</text><input class="input" value="{{form.name}}" data-field="name" bindinput="handleInput" /></view>
+    <view class="field"><text class="label">热量 kcal/100g *</text><input class="input" type="digit" value="{{form.calorie_per_100g}}" data-field="calorie_per_100g" bindinput="handleInput" /></view>
+    <view class="field"><text class="label">蛋白质 g/100g *</text><input class="input" type="digit" value="{{form.protein_per_100g}}" data-field="protein_per_100g" bindinput="handleInput" /></view>
+    <view class="field"><text class="label">碳水 g/100g *</text><input class="input" type="digit" value="{{form.carb_per_100g}}" data-field="carb_per_100g" bindinput="handleInput" /></view>
+    <view class="field"><text class="label">脂肪 g/100g *</text><input class="input" type="digit" value="{{form.fat_per_100g}}" data-field="fat_per_100g" bindinput="handleInput" /></view>
+    <button class="primary-button" loading="{{loading}}" bindtap="saveFood">保存并添加饮食</button>
+  </view>
+</view>

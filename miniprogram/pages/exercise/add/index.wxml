@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="section">
+    <text class="title">{{mode === 'edit' ? '编辑运动' : '添加运动'}}</text>
+    <text class="subtitle">运动时长必须大于 0，消耗热量可由系统估算。</text>
+  </view>
+
+  <view class="section card form-card">
+    <view class="field">
+      <text class="label">日期 *</text>
+      <picker mode="date" value="{{form.record_date}}" bindchange="handleDate">
+        <view class="picker-value">{{form.record_date}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">运动类型 *</text>
+      <picker range="{{exerciseTypes}}" value="{{typeIndex}}" bindchange="handleType">
+        <view class="picker-value">{{exerciseTypes[typeIndex]}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">运动名称 *</text>
+      <input class="input" value="{{form.exercise_name}}" data-field="exercise_name" bindinput="handleInput" placeholder="如 跑步" />
+    </view>
+    <view class="field">
+      <text class="label">运动时长 分钟 *</text>
+      <input class="input" type="digit" value="{{form.duration_min}}" data-field="duration_min" bindinput="handleInput" placeholder="必须大于 0" />
+    </view>
+    <view class="field">
+      <text class="label">运动强度 *</text>
+      <picker range="{{intensityOptions}}" range-key="label" value="{{intensityIndex}}" bindchange="handleIntensity">
+        <view class="picker-value">{{intensityOptions[intensityIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">消耗热量 kcal</text>
+      <input class="input" type="digit" value="{{form.calorie_burned}}" data-field="calorie_burned" bindinput="handleInput" placeholder="留空则系统估算" />
+    </view>
+    <view class="field">
+      <text class="label">备注</text>
+      <input class="input" value="{{form.note}}" data-field="note" bindinput="handleInput" placeholder="可选" />
+    </view>
+    <button class="primary-button" loading="{{loading}}" bindtap="saveRecord">保存运动</button>
+  </view>
+</view>

@@ -1,0 +1,28 @@
+.settings-page {
+  padding-bottom: 64rpx;
+}
+
+.status-card {
+  border: 0;
+  border-radius: 24rpx;
+  box-shadow: 0 14rpx 36rpx rgba(24, 54, 40, 0.07);
+}
+
+.status-text {
+  display: block;
+  margin-top: 24rpx;
+  color: #0f7f4d;
+  font-size: 44rpx;
+  font-weight: 800;
+}
+
+.action-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.delete-button {
+  width: 100%;
+  min-height: 80rpx;
+}

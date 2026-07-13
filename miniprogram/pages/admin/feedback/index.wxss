@@ -1,0 +1,44 @@
+.feedback-card {
+  padding: 24rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+}
+
+.feedback-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-bottom: 10rpx;
+}
+
+.status {
+  color: #0f7f4d;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.drawer-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.28);
+  z-index: 8;
+}
+
+.drawer {
+  position: fixed;
+  left: 24rpx;
+  right: 24rpx;
+  bottom: 24rpx;
+  z-index: 9;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #ffffff;
+  box-shadow: 0 -16rpx 44rpx rgba(0, 0, 0, 0.12);
+}
+
+.content {
+  margin: 18rpx 0;
+}

@@ -1,0 +1,90 @@
+.checkin-card .metric-value {
+  margin-top: 12rpx;
+}
+
+.checkin-row {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+.tag {
+  padding: 8rpx 18rpx;
+  border-radius: var(--radius-sm);
+  border: 1rpx solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 24rpx;
+}
+
+.tag.active {
+  border-color: rgba(22, 160, 93, 0.24);
+  background: rgba(22, 160, 93, 0.08);
+  color: var(--color-primary-dark);
+}
+
+.chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 72rpx 1fr 96rpx;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.bar-date,
+.bar-value {
+  color: var(--color-muted);
+  font-size: 24rpx;
+}
+
+.bar-value {
+  text-align: right;
+}
+
+.bar-track {
+  height: 18rpx;
+  border-radius: 18rpx;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  min-width: 0;
+  border-radius: 18rpx;
+}
+
+.bar-fill.weight {
+  background: var(--color-primary);
+}
+
+.bar-fill.calorie {
+  background: var(--color-accent-blue);
+}
+
+.bar-fill.exercise {
+  background: var(--color-warning);
+}
+
+.macro-share {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.empty-action {
+  margin-top: 24rpx;
+}

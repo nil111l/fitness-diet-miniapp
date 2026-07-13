@@ -1,0 +1,29 @@
+<view class="page">
+  <view wx:if="{{list.length === 0}}" class="empty">暂无反馈</view>
+  <view class="list">
+    <view class="feedback-card" wx:for="{{list}}" wx:key="_id" data-item="{{item}}" bindtap="open">
+      <view class="feedback-top">
+        <text class="list-title">{{item.feedback_type}}</text>
+        <text class="status">{{item.status === 'pending' ? '待处理' : item.status === 'processing' ? '处理中' : item.status === 'resolved' ? '已处理' : '已关闭'}}</text>
+      </view>
+      <text class="muted-text">{{item.content}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{active}}" class="drawer-mask" bindtap="close"></view>
+  <view wx:if="{{active}}" class="drawer">
+    <text class="section-title">{{active.feedback_type}}</text>
+    <text class="body-text content">{{active.content}}</text>
+    <view class="field">
+      <text class="label">处理状态</text>
+      <picker range="{{statusOptions}}" range-key="label" value="{{statusIndex}}" bindchange="changeStatus">
+        <view class="picker-value">{{statusOptions[statusIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">管理员回复</text>
+      <textarea class="textarea" value="{{adminReply}}" placeholder="填写处理说明" bindinput="inputReply"></textarea>
+    </view>
+    <button class="primary-button" bindtap="save">保存处理结果</button>
+  </view>
+</view>

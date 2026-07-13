@@ -1,0 +1,90 @@
+<view class="page">
+  <view class="section">
+    <text class="title">数据</text>
+    <text class="subtitle">近 7 天趋势来自饮食、运动和体重记录。</text>
+  </view>
+
+  <view wx:if="{{!trends}}" class="section loading-state">正在加载数据</view>
+
+  <block wx:else>
+    <view class="section card checkin-card">
+      <text class="section-title">连续打卡</text>
+      <text class="metric-value">{{trends.checkin.streak_days}} 天</text>
+      <view class="checkin-row">
+        <text class="{{trends.checkin.diet_done ? 'tag active' : 'tag'}}">饮食</text>
+        <text class="{{trends.checkin.exercise_done ? 'tag active' : 'tag'}}">运动</text>
+        <text class="{{trends.checkin.weight_done ? 'tag active' : 'tag'}}">体重</text>
+      </view>
+    </view>
+
+    <view class="section card">
+      <view class="chart-head">
+        <text class="section-title">近 7 天体重</text>
+        <button class="small-button" bindtap="goWeight">记录</button>
+      </view>
+      <view wx:if="{{!hasWeightData}}" class="empty">
+        <text>暂无体重数据</text>
+        <button class="primary-button empty-action" bindtap="goWeight">记录体重</button>
+      </view>
+      <view wx:else class="bar-list">
+        <block wx:for="{{weightTrend}}" wx:key="date">
+          <view class="bar-row">
+            <text class="bar-date">{{item.date}}</text>
+            <view class="bar-track"><view class="bar-fill weight" style="width: {{item.percent}}%;"></view></view>
+            <text class="bar-value">{{item.value || '-'}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="section card">
+      <view class="chart-head">
+        <text class="section-title">近 7 天摄入</text>
+        <button class="small-button" bindtap="goDiet">记录</button>
+      </view>
+      <view wx:if="{{!hasCalorieData}}" class="empty">
+        <text>暂无摄入数据</text>
+        <button class="primary-button empty-action" bindtap="goDiet">记录饮食</button>
+      </view>
+      <view wx:else class="bar-list">
+        <block wx:for="{{calorieTrend}}" wx:key="date">
+          <view class="bar-row">
+            <text class="bar-date">{{item.date}}</text>
+            <view class="bar-track"><view class="bar-fill calorie" style="width: {{item.percent}}%;"></view></view>
+            <text class="bar-value">{{item.value}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="section card">
+      <view class="chart-head">
+        <text class="section-title">近 7 天运动</text>
+        <button class="small-button" bindtap="goExercise">记录</button>
+      </view>
+      <view wx:if="{{!hasExerciseData}}" class="empty">
+        <text>暂无运动数据</text>
+        <button class="primary-button empty-action" bindtap="goExercise">记录运动</button>
+      </view>
+      <view wx:else class="bar-list">
+        <block wx:for="{{exerciseTrend}}" wx:key="date">
+          <view class="bar-row">
+            <text class="bar-date">{{item.date}}</text>
+            <view class="bar-track"><view class="bar-fill exercise" style="width: {{item.percent}}%;"></view></view>
+            <text class="bar-value">{{item.value}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="section card">
+      <text class="section-title">今日营养素占比</text>
+      <view wx:if="{{!macroTotal}}" class="empty">暂无今日饮食数据</view>
+      <view wx:else class="macro-share">
+        <view><text class="list-title">蛋白质</text><text class="muted-text">{{trends.today_macros.protein}}g</text></view>
+        <view><text class="list-title">碳水</text><text class="muted-text">{{trends.today_macros.carb}}g</text></view>
+        <view><text class="list-title">脂肪</text><text class="muted-text">{{trends.today_macros.fat}}g</text></view>
+      </view>
+    </view>
+  </block>
+</view>

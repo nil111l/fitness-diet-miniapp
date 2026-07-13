@@ -1,0 +1,59 @@
+.page-head {
+  margin-bottom: 24rpx;
+}
+
+.form-card {
+  border: 0;
+  border-radius: 24rpx;
+  box-shadow: 0 14rpx 36rpx rgba(24, 54, 40, 0.07);
+}
+
+.image-grid {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.image-box,
+.add-image {
+  position: relative;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
+  background: #eef4f1;
+}
+
+.image-box image {
+  width: 100%;
+  height: 100%;
+}
+
+.remove-image {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 18rpx;
+  background: rgba(0, 0, 0, 0.48);
+  color: #ffffff;
+  font-size: 26rpx;
+}
+
+.add-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f7f4d;
+  font-size: 56rpx;
+  font-weight: 300;
+  border: 1rpx dashed #a8cdbb;
+}
+
+.submit-button {
+  margin-top: 28rpx;
+}

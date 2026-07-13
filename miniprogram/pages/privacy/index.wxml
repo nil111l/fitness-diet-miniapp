@@ -1,0 +1,11 @@
+<view class="page doc-page">
+  <text class="title">隐私政策</text>
+  <view class="card doc-card">
+    <text class="doc-title">收集的信息</text>
+    <text class="doc-text">为完成登录、健康档案和目标设置，我们会使用微信提供的账号识别信息、昵称头像，以及你主动填写的性别、出生年月、身高、体重、目标和活动水平。</text>
+    <text class="doc-title">使用方式</text>
+    <text class="doc-text">这些信息仅用于识别账号、保存个人记录、计算推荐热量和展示小程序内数据。</text>
+    <text class="doc-title">数据隔离</text>
+    <text class="doc-text">用户私有数据按账号身份隔离。小程序端不会保存平台密钥或登录会话密钥等敏感信息。</text>
+  </view>
+</view>

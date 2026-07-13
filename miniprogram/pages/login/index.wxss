@@ -1,0 +1,58 @@
+.login-page {
+  padding-top: 72rpx;
+}
+
+.login-card {
+  margin-top: 36rpx;
+}
+
+.login-title {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.login-desc {
+  display: block;
+  margin-top: 12rpx;
+  color: var(--color-muted);
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.agreement-row {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 40rpx;
+}
+
+.checkbox {
+  width: 34rpx;
+  height: 34rpx;
+  flex: 0 0 34rpx;
+  margin-top: 4rpx;
+  border: 2rpx solid var(--color-border);
+  border-radius: 8rpx;
+  background: #ffffff;
+}
+
+.checkbox.checked {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.agreement-text {
+  flex: 1;
+  margin-left: 16rpx;
+  color: var(--color-muted);
+  font-size: 24rpx;
+  line-height: 1.7;
+}
+
+.link {
+  color: var(--color-primary-dark);
+}
+
+.login-button {
+  margin-top: 36rpx;
+}

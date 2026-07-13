@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="card form-card">
+    <view class="field">
+      <text class="label">食材名称</text>
+      <input class="input" value="{{form.name}}" placeholder="如 鸡胸肉" data-field="name" bindinput="inputField" />
+    </view>
+    <view class="field">
+      <text class="label">分类</text>
+      <picker range="{{categories}}" range-key="name" value="{{categoryIndex}}" bindchange="changeCategory">
+        <view class="picker-value">{{categories[categoryIndex] ? categories[categoryIndex].name : '请选择分类'}}</view>
+      </picker>
+    </view>
+    <view class="nutri-grid">
+      <input class="input" type="number" value="{{form.calorie_per_100g}}" placeholder="热量" data-field="calorie_per_100g" bindinput="inputField" />
+      <input class="input" type="number" value="{{form.protein_per_100g}}" placeholder="蛋白质" data-field="protein_per_100g" bindinput="inputField" />
+      <input class="input" type="number" value="{{form.carb_per_100g}}" placeholder="碳水" data-field="carb_per_100g" bindinput="inputField" />
+      <input class="input" type="number" value="{{form.fat_per_100g}}" placeholder="脂肪" data-field="fat_per_100g" bindinput="inputField" />
+    </view>
+    <button class="primary-button" bindtap="save">{{form._id ? '保存食材' : '新增食材'}}</button>
+  </view>
+
+  <view class="search-row">
+    <input class="input search-input" value="{{keyword}}" placeholder="搜索食材名称" bindinput="inputKeyword" />
+    <button class="small-button search-btn" bindtap="loadAll">搜索</button>
+  </view>
+
+  <view class="list">
+    <view class="admin-card" wx:for="{{foods}}" wx:key="_id">
+      <view>
+        <text class="list-title">{{item.name}}</text>
+        <text class="muted-text">{{item.calorie_per_100g}} kcal / 100g　{{item.status === 'inactive' ? '已下架' : '上架中'}}</text>
+      </view>
+      <view class="button-line">
+        <button class="small-button" data-item="{{item}}" bindtap="edit">编辑</button>
+        <button class="small-button" data-item="{{item}}" bindtap="toggle">{{item.status === 'inactive' ? '上架' : '下架'}}</button>
+        <button class="danger-button" data-item="{{item}}" bindtap="remove">删除</button>
+      </view>
+    </view>
+  </view>
+</view>
