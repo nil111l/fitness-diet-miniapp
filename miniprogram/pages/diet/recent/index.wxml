@@ -1,0 +1,29 @@
+<view class="page">
+  <view class="section">
+    <text class="title">最近记录</text>
+    <text class="subtitle">展示最近使用的 20 种食物，默认带入上次重量。</text>
+  </view>
+
+  <view class="section card meal-selector">
+    <text class="label">添加到</text>
+    <picker range="{{mealOptions}}" range-key="label" value="{{mealIndex}}" bindchange="handleMeal">
+      <view class="picker-value">{{mealOptions[mealIndex].label}}</view>
+    </picker>
+  </view>
+
+  <view wx:if="{{loading && !items.length}}" class="loading-state">正在加载最近记录</view>
+  <view wx:elif="{{!items.length}}" class="section card empty">
+    <text>还没有最近饮食</text>
+    <text class="muted-text">完成一次饮食记录后，这里会显示快捷入口。</text>
+    <button class="primary-button empty-action" bindtap="goSearch">添加饮食</button>
+  </view>
+  <view wx:else class="section list">
+    <view class="card recent-row" wx:for="{{items}}" wx:key="food_id" data-item="{{item}}" bindtap="quickAdd">
+      <view>
+        <text class="list-title">{{item.food_name}}</text>
+        <text class="muted-text">上次 {{item.last_amount_g}}g · {{item.calorie_per_100g}} kcal/100g</text>
+      </view>
+      <text class="add-text">添加</text>
+    </view>
+  </view>
+</view>

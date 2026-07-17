@@ -16,6 +16,7 @@ Page({
     keyword: "",
     categories: [{ _id: "", name: "全部分类" }],
     categoryIndex: 0,
+    favorites: [],
     foods: [],
     meal: "",
     loading: false
@@ -25,7 +26,26 @@ Page({
     wx.setNavigationBarTitle({ title: "食物搜索" });
     this.setData({ meal: query && query.meal ? query.meal : "" });
     this.loadCategories();
+    this.loadFavorites();
     this.searchFoods();
+  },
+
+  async loadFavorites() {
+    try {
+      const result = await callFunction("diet", { action: "favorites", page: 1, page_size: 6 }, { showLoading: false, silent: true });
+      this.setData({ favorites: result.items.map((item) => ({
+        _id: item.food_id,
+        name: item.food_name,
+        source: item.food_source,
+        calorie_per_100g: item.calorie_per_100g,
+        protein_per_100g: item.protein_per_100g,
+        carb_per_100g: item.carb_per_100g,
+        fat_per_100g: item.fat_per_100g,
+        default_amount_g: item.default_amount_g
+      })) });
+    } catch (error) {
+      this.setData({ favorites: [] });
+    }
   },
 
   async loadCategories() {
@@ -68,6 +88,8 @@ Page({
       return;
     }
     wx.setStorageSync("selected_food", food);
+    if (food.default_amount_g) wx.setStorageSync("selected_food_amount", food.default_amount_g);
+    else wx.removeStorageSync("selected_food_amount");
     const editingRecord = wx.getStorageSync("editing_diet_record");
     if (editingRecord && editingRecord._id) {
       wx.navigateTo({ url: `/pages/diet/add/index?recordId=${editingRecord._id}` });
@@ -82,5 +104,13 @@ Page({
 
   goMyFoods() {
     wx.navigateTo({ url: "/pages/food/my/index" });
+  },
+
+  goFavorites() {
+    wx.navigateTo({ url: this.data.meal ? `/pages/food/favorites/index?meal=${this.data.meal}` : "/pages/food/favorites/index" });
+  },
+
+  goRecent() {
+    wx.navigateTo({ url: this.data.meal ? `/pages/diet/recent/index?meal=${this.data.meal}` : "/pages/diet/recent/index" });
   }
 });

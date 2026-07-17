@@ -4,6 +4,13 @@
     <text class="subtitle">记录饮食、运动和体重，首页与数据页会自动同步。</text>
   </view>
 
+  <view class="section efficiency-grid">
+    <view class="efficiency-card" bindtap="goFavorites"><text class="efficiency-title">常吃食物</text><text class="efficiency-desc">优先选择常用食物</text></view>
+    <view class="efficiency-card" bindtap="goRecent"><text class="efficiency-title">最近记录</text><text class="efficiency-desc">复用最近重量</text></view>
+    <view class="efficiency-card" bindtap="goTemplates"><text class="efficiency-title">饮食模板</text><text class="efficiency-desc">整餐快速添加</text></view>
+    <view class="efficiency-card" bindtap="goCalendar"><text class="efficiency-title">打卡日历</text><text class="efficiency-desc">查看连续记录</text></view>
+  </view>
+
   <view class="section list">
     <view class="card record-card" bindtap="goDietDetail">
       <text class="record-title">今日饮食</text>

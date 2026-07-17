@@ -22,5 +22,21 @@ Page({
 
   goWeight() {
     wx.navigateTo({ url: "/pages/weight/index" });
+  },
+
+  goFavorites() {
+    wx.navigateTo({ url: "/pages/food/favorites/index" });
+  },
+
+  goRecent() {
+    wx.navigateTo({ url: "/pages/diet/recent/index" });
+  },
+
+  goTemplates() {
+    wx.navigateTo({ url: "/pages/diet/templates/index" });
+  },
+
+  goCalendar() {
+    wx.navigateTo({ url: "/pages/checkin/calendar/index" });
   }
 });

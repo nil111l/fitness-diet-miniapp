@@ -1,0 +1,48 @@
+<view class="page calendar-page">
+  <view class="section calendar-head">
+    <view>
+      <text class="title">打卡日历</text>
+      <text class="subtitle">饮食、运动或体重任一记录完成，即计入当日连续打卡。</text>
+    </view>
+  </view>
+
+  <view class="section streak-grid">
+    <view class="streak-card">
+      <text class="streak-label">当前连续</text>
+      <text class="streak-value">{{currentStreak}} 天</text>
+    </view>
+    <view class="streak-card">
+      <text class="streak-label">最长连续</text>
+      <text class="streak-value">{{longestStreak}} 天</text>
+    </view>
+  </view>
+
+  <view class="section card calendar-card">
+    <view class="month-nav">
+      <button class="icon-button" aria-label="上个月" bindtap="previousMonth">‹</button>
+      <text class="month-title">{{monthLabel}}</text>
+      <button class="icon-button" aria-label="下个月" bindtap="nextMonth">›</button>
+    </view>
+    <view class="weekday-row">
+      <text wx:for="{{weekdays}}" wx:key="*this" class="weekday">{{item}}</text>
+    </view>
+    <view wx:if="{{loading && !cells.length}}" class="loading-state">正在加载打卡记录</view>
+    <view wx:else class="calendar-grid">
+      <view wx:for="{{cells}}" wx:key="key" class="{{item.blank ? 'day-cell blank' : item.is_today ? 'day-cell today' : item.is_future ? 'day-cell future' : 'day-cell'}}">
+        <block wx:if="{{!item.blank}}">
+          <text class="day-number">{{item.day}}</text>
+          <view class="day-dots">
+            <text wx:if="{{item.diet}}" class="dot diet"></text>
+            <text wx:if="{{item.exercise}}" class="dot exercise"></text>
+            <text wx:if="{{item.weight}}" class="dot weight"></text>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="legend">
+      <view class="legend-item"><text class="dot diet"></text><text>饮食</text></view>
+      <view class="legend-item"><text class="dot exercise"></text><text>运动</text></view>
+      <view class="legend-item"><text class="dot weight"></text><text>体重</text></view>
+    </view>
+  </view>
+</view>

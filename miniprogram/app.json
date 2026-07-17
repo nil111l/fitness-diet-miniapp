@@ -25,7 +25,13 @@
     "pages/admin/users/index",
     "pages/admin/categories/index",
     "pages/admin/foods/index",
-    "pages/admin/feedback/index"
+    "pages/admin/feedback/index",
+    "pages/reminders/index",
+    "pages/food/favorites/index",
+    "pages/diet/recent/index",
+    "pages/diet/templates/index",
+    "pages/diet/template-edit/index",
+    "pages/checkin/calendar/index"
   ],
   "window": {
     "backgroundColor": "#F5F7F6",

@@ -31,5 +31,9 @@ Page({
 
   goLogin() {
     wx.navigateTo({ url: "/pages/login/index" });
+  },
+
+  goReminders() {
+    wx.navigateTo({ url: "/pages/reminders/index" });
   }
 });

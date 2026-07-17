@@ -14,6 +14,7 @@ Phase 0 keeps the cloud backend as a clear directory plan. Business logic will b
 - `stats`: Daily dashboard and 7-day trends.
 - `checkin`: Daily check-in records.
 - `feedback`: User feedback.
+- `reminder`: User-authorized record reminders and timer dispatch.
 - `admin`: Basic operation admin APIs.
 - `_shared`: Shared helpers used by business cloud functions.
 - `_quickstart`: Archived WeChat cloud development quickstart examples. Do not use as MVP business code.

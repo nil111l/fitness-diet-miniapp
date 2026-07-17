@@ -39,7 +39,8 @@ function pad(value) {
 }
 
 function formatDate(date = new Date()) {
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  const china = new Date(date.getTime() + 8 * 60 * 60 * 1000);
+  return `${china.getUTCFullYear()}-${pad(china.getUTCMonth() + 1)}-${pad(china.getUTCDate())}`;
 }
 
 function addDays(date, offset) {
@@ -73,25 +74,83 @@ function buildCheckinMap(records) {
   return map;
 }
 
-async function getCheckinSummary(openid, date) {
-  const today = new Date(`${date}T00:00:00`);
-  const fromDate = formatDate(addDays(today, -60));
-  const result = await db.collection("checkin_records").where({ openid, deleted_at: null }).limit(500).get();
-  const recent = result.data.filter((item) => item.checkin_date >= fromDate);
-  const map = buildCheckinMap(recent);
-  let streak = 0;
-  for (let i = 0; i < 60; i += 1) {
-    const key = formatDate(addDays(today, -i));
+function uniqueCheckinDates(records) {
+  const map = buildCheckinMap(records);
+  return Object.keys(map).sort();
+}
+
+function dayDistance(from, to) {
+  const fromDate = new Date(`${from}T00:00:00Z`);
+  const toDate = new Date(`${to}T00:00:00Z`);
+  return Math.round((toDate.getTime() - fromDate.getTime()) / 86400000);
+}
+
+function chinaDateKey(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  const china = new Date(date.getTime() + 8 * 60 * 60 * 1000);
+  return `${china.getUTCFullYear()}-${pad(china.getUTCMonth() + 1)}-${pad(china.getUTCDate())}`;
+}
+
+function streakEligibleRecords(records, todayKey) {
+  return records.filter((item) => {
+    const checkinDate = String(item.checkin_date || "");
+    if (!checkinDate || checkinDate > todayKey) return false;
+    if (!item.created_at) return true;
+    const createdKey = chinaDateKey(item.created_at);
+    if (!createdKey) return true;
+    return dayDistance(checkinDate, createdKey) <= 1;
+  });
+}
+
+function calculateStreaks(records, todayKey) {
+  const eligibleRecords = streakEligibleRecords(records, todayKey);
+  const dates = uniqueCheckinDates(eligibleRecords);
+  const map = buildCheckinMap(eligibleRecords);
+  const today = new Date(`${todayKey}T00:00:00`);
+  let cursor = today;
+  if (!map[todayKey]) cursor = addDays(today, -1);
+  let current = 0;
+  for (let i = 0; i < 1000; i += 1) {
+    const key = formatDate(cursor);
     if (!map[key]) break;
-    streak += 1;
+    current += 1;
+    cursor = addDays(cursor, -1);
   }
-  const todayRecords = recent.filter((item) => item.checkin_date === date);
+
+  let longest = 0;
+  let running = 0;
+  let previous = "";
+  dates.forEach((date) => {
+    running = previous && dayDistance(previous, date) === 1 ? running + 1 : 1;
+    longest = Math.max(longest, running);
+    previous = date;
+  });
+  return { current, longest };
+}
+
+async function getCheckinSummary(openid, date) {
+  const result = await db.collection("checkin_records").where({ openid, deleted_at: null }).orderBy("checkin_date", "desc").limit(1000).get();
+  const records = result.data;
+  const streaks = calculateStreaks(records, date);
+  const todayRecords = records.filter((item) => item.checkin_date === date);
   return {
-    streak_days: streak,
+    streak_days: streaks.current,
     diet_done: todayRecords.some((item) => item.type === "diet"),
     exercise_done: todayRecords.some((item) => item.type === "exercise"),
     weight_done: todayRecords.some((item) => item.type === "weight")
   };
+}
+
+async function getAllCheckins(openid) {
+  const records = [];
+  const pageSize = 1000;
+  for (let page = 0; page < 20; page += 1) {
+    const result = await db.collection("checkin_records").where({ openid, deleted_at: null }).skip(page * pageSize).limit(pageSize).get();
+    records.push(...result.data);
+    if (result.data.length < pageSize) break;
+  }
+  return records;
 }
 
 async function dashboard(event, openid) {
@@ -130,6 +189,51 @@ async function dashboard(event, openid) {
     streak_days: checkin.streak_days,
     records,
     exercises
+  });
+}
+
+function daysInMonth(month) {
+  const parts = month.split("-").map(Number);
+  return new Date(parts[0], parts[1], 0).getDate();
+}
+
+async function calendar(event, openid) {
+  const today = formatDate();
+  const month = /^\d{4}-(0[1-9]|1[0-2])$/.test(String(event.month || "")) ? event.month : today.slice(0, 7);
+  const records = await getAllCheckins(openid);
+  const monthRecords = records.filter((item) => String(item.checkin_date || "").slice(0, 7) === month);
+  const byDate = {};
+  monthRecords.forEach((item) => {
+    if (!byDate[item.checkin_date]) byDate[item.checkin_date] = { diet: false, exercise: false, weight: false };
+    if (item.type === "diet" || item.type === "exercise" || item.type === "weight") {
+      byDate[item.checkin_date][item.type] = true;
+    }
+  });
+  const count = daysInMonth(month);
+  const days = [];
+  for (let day = 1; day <= count; day += 1) {
+    const date = `${month}-${pad(day)}`;
+    const status = byDate[date] || { diet: false, exercise: false, weight: false };
+    days.push({
+      date,
+      day,
+      diet: status.diet,
+      exercise: status.exercise,
+      weight: status.weight,
+      checked: status.diet || status.exercise || status.weight,
+      is_today: date === today,
+      is_future: date > today
+    });
+  }
+  const first = new Date(`${month}-01T00:00:00`);
+  const streaks = calculateStreaks(records, today);
+  return ok({
+    month,
+    today,
+    first_weekday: first.getDay(),
+    days,
+    current_streak_days: streaks.current,
+    longest_streak_days: streaks.longest
   });
 }
 
@@ -183,6 +287,7 @@ exports.main = async (event) => {
     await ensureCollections();
     if (action === "dashboard") return await dashboard(event, openid);
     if (action === "trends") return await trends(openid);
+    if (action === "calendar") return await calendar(event, openid);
     return fail("UNKNOWN_ACTION", "未知操作");
   } catch (error) {
     return fail("INTERNAL_ERROR", error.message || "服务暂时不可用");

@@ -1,0 +1,30 @@
+<view class="page">
+  <view class="section">
+    <text class="title">常吃食物</text>
+    <text class="subtitle">选择餐次后，可快速带入常用重量继续记录。</text>
+  </view>
+
+  <view class="section card meal-selector">
+    <text class="label">添加到</text>
+    <picker range="{{mealOptions}}" range-key="label" value="{{mealIndex}}" bindchange="handleMeal">
+      <view class="picker-value">{{mealOptions[mealIndex].label}}</view>
+    </picker>
+  </view>
+
+  <view wx:if="{{loading && !items.length}}" class="loading-state">正在加载常吃食物</view>
+  <view wx:elif="{{!items.length}}" class="section card empty">
+    <text>还没有常吃食物</text>
+    <text class="muted-text">添加饮食时勾选“加入常吃”，下次记录会更快。</text>
+    <button class="primary-button empty-action" bindtap="goSearch">选择食物</button>
+  </view>
+  <view wx:else class="section list">
+    <view class="card food-row" wx:for="{{items}}" wx:key="_id" data-item="{{item}}" bindtap="quickAdd">
+      <view class="food-main">
+        <text class="list-title">{{item.food_name}}</text>
+        <text class="muted-text">常用 {{item.default_amount_g}}g · {{item.calorie_per_100g}} kcal/100g</text>
+      </view>
+      <button class="danger-button row-action" data-item="{{item}}" catchtap="removeFavorite">取消</button>
+    </view>
+    <view wx:if="{{loading}}" class="loading-state">正在加载</view>
+  </view>
+</view>

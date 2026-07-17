@@ -1,5 +1,6 @@
 const { callFunction } = require("../../utils/cloud");
 const { getUser, getProfile, getGoal } = require("../../utils/auth");
+const { startQuickDiet } = require("../../utils/quick-diet");
 
 function percent(value, target) {
   if (!target) return 0;
@@ -21,8 +22,10 @@ Page({
       diet_checkin_done: false,
       exercise_checkin_done: false,
       weight_checkin_done: false,
-      streak_days: 0
+      streak_days: 0,
+      longest_streak_days: 0
     },
+    quickFoods: [],
     macroProgress: {
       protein: 0,
       carb: 0,
@@ -40,7 +43,10 @@ Page({
       wx.navigateTo({ url: "/pages/login/index" });
       return;
     }
-    if (goal) this.loadDashboard();
+    if (goal) {
+      this.loadDashboard();
+      this.loadQuickOptions();
+    }
   },
 
   async loadDashboard() {
@@ -54,6 +60,36 @@ Page({
         fat: percent(dashboard.macros.fat, dashboard.macro_targets.fat_g)
       }
     });
+  },
+
+  async loadQuickOptions() {
+    try {
+      const result = await callFunction("diet", { action: "quickOptions" }, { showLoading: false, silent: true });
+      const quickFoods = (result.favorites.length ? result.favorites : result.recent).slice(0, 4);
+      this.setData({ quickFoods });
+    } catch (error) {
+      this.setData({ quickFoods: [] });
+    }
+  },
+
+  quickAdd(event) {
+    startQuickDiet(event.currentTarget.dataset.item);
+  },
+
+  goFavorites() {
+    wx.navigateTo({ url: "/pages/food/favorites/index" });
+  },
+
+  goRecent() {
+    wx.navigateTo({ url: "/pages/diet/recent/index" });
+  },
+
+  goTemplates() {
+    wx.navigateTo({ url: "/pages/diet/templates/index" });
+  },
+
+  goCalendar() {
+    wx.navigateTo({ url: "/pages/checkin/calendar/index" });
   },
 
   goRecord() {

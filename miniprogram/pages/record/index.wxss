@@ -4,6 +4,8 @@
   gap: 20rpx;
 }
 
+.efficiency-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14rpx}.efficiency-card{min-height:108rpx;padding:22rpx;border:1rpx solid rgba(22,160,93,.14);border-radius:var(--radius-md);background:rgba(22,160,93,.05)}.efficiency-title{display:block;color:var(--color-text);font-size:27rpx;font-weight:700}.efficiency-desc{display:block;margin-top:7rpx;color:var(--color-muted);font-size:21rpx}
+
 .record-card {
   min-height: 132rpx;
 }

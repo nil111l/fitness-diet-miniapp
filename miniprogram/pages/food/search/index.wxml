@@ -15,6 +15,21 @@
     </picker>
     <button class="filter-button" bindtap="goCustom">新建食物</button>
     <button class="filter-button" bindtap="goMyFoods">我的食物</button>
+    <button class="filter-button" bindtap="goFavorites">我的常吃</button>
+    <button class="filter-button" bindtap="goRecent">最近记录</button>
+  </view>
+
+  <view wx:if="{{favorites.length}}" class="section favorite-section">
+    <view class="panel-head">
+      <text class="section-title">常吃优先</text>
+      <text class="muted-text" bindtap="goFavorites">管理</text>
+    </view>
+    <scroll-view class="favorite-scroll" scroll-x enable-flex>
+      <view class="favorite-chip" wx:for="{{favorites}}" wx:key="_id" data-food="{{item}}" bindtap="addFood">
+        <text class="favorite-name">{{item.name}}</text>
+        <text class="favorite-amount">{{item.default_amount_g}}g</text>
+      </view>
+    </scroll-view>
   </view>
 
   <view class="section list">

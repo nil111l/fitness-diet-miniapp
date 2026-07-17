@@ -192,6 +192,8 @@
   margin-top: 22rpx;
 }
 
+.quick-panel{overflow:hidden}.quick-food-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12rpx;margin-top:20rpx}.quick-food{min-width:0;padding:20rpx;border:1rpx solid rgba(22,160,93,.14);border-radius:var(--radius-md);background:rgba(22,160,93,.05)}.quick-food-name{display:block;overflow:hidden;color:var(--color-text);font-size:26rpx;font-weight:700;text-overflow:ellipsis;white-space:nowrap}.quick-food-meta{display:block;margin-top:7rpx;color:var(--color-primary-dark);font-size:21rpx}.quick-empty{margin-top:18rpx;padding:24rpx;border-radius:var(--radius-md);background:var(--color-background);color:var(--color-muted);font-size:23rpx;text-align:center}.quick-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10rpx;margin-top:16rpx}.quick-link{display:flex;align-items:center;justify-content:center;height:64rpx;min-height:64rpx;padding:0 8rpx;border:1rpx solid var(--color-border);border-radius:var(--radius-md);background:#fff;color:var(--color-text);font-size:22rpx;line-height:1}
+
 .checkin-chip {
   display: flex;
   align-items: center;

@@ -27,6 +27,13 @@
       <text class="label">备注</text>
       <input class="input" value="{{form.note}}" data-field="note" bindinput="handleInput" placeholder="可选" />
     </view>
+    <view wx:if="{{mode === 'create'}}" class="favorite-field">
+      <view>
+        <text class="label">加入常吃</text>
+        <text class="field-hint">下次可从首页直接记录</text>
+      </view>
+      <switch color="#16a05d" checked="{{addToFavorites}}" bindchange="handleFavorite" />
+    </view>
   </view>
 
   <view class="section card result-card">

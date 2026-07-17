@@ -1,0 +1,1 @@
+.record-option{display:flex;align-items:center;gap:20rpx;min-height:108rpx}.record-option .muted-text{margin-top:6rpx}.empty-action{margin-top:24rpx}

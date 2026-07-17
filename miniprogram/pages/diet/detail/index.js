@@ -74,6 +74,15 @@ Page({
     this.loadRecords();
   },
 
+  saveMealTemplate(event) {
+    const meal = event.currentTarget.dataset.meal || "";
+    wx.navigateTo({ url: `/pages/diet/template-edit/index?meal=${meal}` });
+  },
+
+  goTemplates() {
+    wx.navigateTo({ url: "/pages/diet/templates/index" });
+  },
+
   mealLabel(event) {
     return getMealLabel(event);
   }

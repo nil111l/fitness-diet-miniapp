@@ -1,0 +1,31 @@
+<view class="page reminder-page">
+  <view class="section">
+    <text class="title">提醒设置</text>
+    <text class="subtitle">提醒只用于你的记录计划，不发送营销消息。开启时会由你主动确认微信订阅授权。</text>
+  </view>
+
+  <view wx:if="{{missingTemplateCount}}" class="section card notice-card">
+    <text class="list-title">部分提醒暂不可开启</text>
+    <text class="muted-text">订阅消息模板尚未配置完成，可先设置时间，配置完成后再主动开启。</text>
+  </view>
+
+  <view wx:if="{{loading && !settings.length}}" class="loading-state">正在加载提醒设置</view>
+
+  <view wx:else class="section list">
+    <view class="card reminder-card" wx:for="{{settings}}" wx:key="reminder_type">
+      <view class="reminder-head">
+        <view class="reminder-copy">
+          <text class="list-title">{{item.label}}</text>
+          <text class="muted-text">{{item.desc}}</text>
+        </view>
+        <switch color="#16a05d" checked="{{item.enabled}}" data-index="{{index}}" bindchange="handleToggle" />
+      </view>
+      <view class="reminder-foot">
+        <picker mode="time" value="{{item.reminder_time}}" data-index="{{index}}" bindchange="handleTime">
+          <view class="time-picker">{{item.reminder_time}}</view>
+        </picker>
+        <text class="status-text">{{item.status_text}}</text>
+      </view>
+    </view>
+  </view>
+</view>

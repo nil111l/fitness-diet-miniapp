@@ -33,9 +33,14 @@
 ## diet
 
 - `list`：按日期读取饮食记录。
-- `save`：新增或编辑饮食记录。
+- `upsert`：新增或编辑饮食记录，可通过 `add_to_favorites` 同时加入常吃。
 - `remove`：删除饮食记录。
 - `copyYesterday`：复制昨日饮食到今日。
+- `favorites`、`setFavorite`：分页读取、添加或取消当前用户的常吃食物。
+- `recentFoods`：读取最近 20 种不重复食物并带回最近一次重量。
+- `quickOptions`：读取首页快捷记录候选。
+- `saveTemplate`、`templates`、`removeTemplate`：保存、分页读取和删除饮食模板。
+- `applyTemplate`：复制模板内容，生成指定日期与餐次的新饮食记录。
 
 ## exercise
 
@@ -52,6 +57,13 @@
 
 - `dashboard`：首页仪表盘数据。
 - `trends`：近 7 天体重、热量摄入、运动消耗、营养素占比。
+- `calendar`：读取指定月份三类打卡状态、当前连续天数和最长连续天数。
+
+## reminder
+
+- `get`：读取六类提醒设置、授权状态和订阅模板可用状态。
+- `save`：保存单类提醒时间和开关；开启前必须已由用户主动授权。
+- 定时触发：云函数每分钟检查到期提醒，同一类型同一天最多发送一次；一次性订阅发送后自动关闭。
 
 ## feedback
 

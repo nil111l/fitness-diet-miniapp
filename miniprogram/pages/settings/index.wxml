@@ -6,6 +6,7 @@
   </view>
 
   <view class="section action-list">
+    <button wx:if="{{user}}" class="secondary-button" bindtap="goReminders">记录提醒设置</button>
     <button wx:if="{{!user}}" class="primary-button" bindtap="goLogin">微信登录</button>
     <button wx:else class="secondary-button" bindtap="logout">退出登录</button>
     <button wx:if="{{user}}" class="danger-button delete-button" bindtap="goDeleteAccount">进入注销账号页</button>

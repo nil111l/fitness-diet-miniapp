@@ -27,6 +27,7 @@
 - `exercise`
 - `body`
 - `feedback`
+- `reminder`
 - `admin`
 
 也可以使用项目根目录的脚本：
@@ -42,6 +43,31 @@
 ```powershell
 npm.cmd install
 ```
+
+## Phase 6 提醒配置
+
+1. 在微信公众平台申请与早餐、午餐、晚餐、喝水、运动、体重记录相符的订阅消息模板。
+2. 在云函数 `reminder` 的环境变量中配置 `REMINDER_TEMPLATE_CONFIG`。示例：
+
+```json
+{
+  "breakfast": {
+    "template_id": "模板ID",
+    "long_term": false,
+    "page": "pages/home/index",
+    "data": {
+      "thing1": "早餐记录提醒",
+      "time2": "{{time}}"
+    }
+  }
+}
+```
+
+3. 字段名必须与所选订阅模板完全一致；其余五类按相同结构配置。`long_term` 仅在平台实际授予长期订阅能力时设为 `true`。
+4. 上传 `reminder` 云函数时保留 `config.json` 中每分钟执行的 `reminder-dispatch` 定时触发器，并确认云函数具有订阅消息发送权限。
+5. 未配置模板时，小程序会显示“订阅消息模板尚未配置”，不会伪装成已开启。
+
+新增集合 `favorite_foods`、`diet_templates`、`reminder_settings` 可由云函数首次运行时创建；建议在云开发控制台将客户端权限设置为不可直接读写。
 
 ## 常见问题
 

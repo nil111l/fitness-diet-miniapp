@@ -4,7 +4,10 @@
       <text class="title">今日饮食</text>
       <text class="subtitle">{{date}} · 添加后自动完成饮食打卡</text>
     </view>
-    <button class="small-button" bindtap="copyYesterday">复制昨日</button>
+    <view class="header-actions">
+      <button class="small-button" bindtap="goTemplates">模板</button>
+      <button class="small-button" bindtap="copyYesterday">复制昨日</button>
+    </view>
   </view>
 
   <view class="section card summary-card">
@@ -30,7 +33,10 @@
     <view class="section card meal-card">
       <view class="meal-head">
         <text class="meal-title">{{item.label}}</text>
-        <button class="small-button" data-meal="{{item.value}}" bindtap="goAdd">添加</button>
+        <view class="meal-actions">
+          <button wx:if="{{item.records.length}}" class="text-button" data-meal="{{item.value}}" bindtap="saveMealTemplate">存模板</button>
+          <button class="small-button" data-meal="{{item.value}}" bindtap="goAdd">添加</button>
+        </view>
       </view>
       <view wx:if="{{!item.records.length}}" class="empty mini-empty">暂无记录</view>
       <block wx:for="{{item.records}}" wx:key="_id" wx:for-item="record">

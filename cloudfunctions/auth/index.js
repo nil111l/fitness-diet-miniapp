@@ -37,6 +37,9 @@ async function ensureBaseCollections() {
   await ensureCollection("body_records");
   await ensureCollection("checkin_records");
   await ensureCollection("foods");
+  await ensureCollection("favorite_foods");
+  await ensureCollection("diet_templates");
+  await ensureCollection("reminder_settings");
 }
 
 async function getActiveRecord(collection, openid) {
@@ -175,6 +178,9 @@ async function cancelAccount(event) {
   await markUserDataDeleted("body_records", openid, { anonymized: true });
   await markUserDataDeleted("checkin_records", openid, { anonymized: true });
   await markUserDataDeleted("foods", openid, { status: "deleted", anonymized: true });
+  await markUserDataDeleted("favorite_foods", openid, { anonymized: true });
+  await markUserDataDeleted("diet_templates", openid, { anonymized: true });
+  await markUserDataDeleted("reminder_settings", openid, { anonymized: true });
 
   return ok({ status: "cancelled" });
 }

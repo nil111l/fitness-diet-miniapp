@@ -22,6 +22,7 @@ Page({
       note: ""
     },
     totals: { calorie: 0, protein: 0, carb: 0, fat: 0 },
+    addToFavorites: false,
     loading: false
   },
 
@@ -64,15 +65,17 @@ Page({
       return;
     }
 
+    const defaultAmount = wx.getStorageSync("selected_food_amount");
     this.setData({
       food: selectedFood,
       mealIndex: getMealIndex(meal),
       form: Object.assign({}, this.data.form, {
         food_id: selectedFood._id,
         meal_type: meal,
-        record_date: formatDate()
+        record_date: formatDate(),
+        amount_g: defaultAmount ? String(defaultAmount) : ""
       })
-    });
+    }, () => this.calculate());
   },
 
   handleMeal(event) {
@@ -84,6 +87,10 @@ Page({
     const field = event.currentTarget.dataset.field;
     this.setData({ [`form.${field}`]: event.detail.value });
     if (field === "amount_g") this.calculate();
+  },
+
+  handleFavorite(event) {
+    this.setData({ addToFavorites: event.detail.value });
   },
 
   calculate() {
@@ -120,8 +127,13 @@ Page({
     if (this.data.loading) return;
     this.setData({ loading: true });
     try {
-      await callFunction("diet", { action: "upsert", record: this.data.form }, { loadingText: "保存中" });
+      await callFunction("diet", {
+        action: "upsert",
+        record: this.data.form,
+        add_to_favorites: this.data.mode === "create" && this.data.addToFavorites
+      }, { loadingText: "保存中" });
       wx.removeStorageSync("selected_food");
+      wx.removeStorageSync("selected_food_amount");
       wx.removeStorageSync("editing_diet_record");
       showSuccess("饮食已保存");
       wx.redirectTo({ url: "/pages/diet/detail/index" });

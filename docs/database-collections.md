@@ -140,6 +140,57 @@
 - `type`：`diet`、`exercise`、`weight`
 - `items`
 
+连续打卡只统计当天正常记录或最晚在次日补记的数据；更早日期的补录仍可展示，但不回写历史连续天数。
+
+## favorite_foods
+
+用户常吃食物，仅允许对应用户通过云函数访问。
+
+- `user_id`
+- `openid`
+- `food_id`
+- `food_name`
+- `food_source`
+- `default_amount_g`
+- `calorie_per_100g`
+- `protein_per_100g`
+- `carb_per_100g`
+- `fat_per_100g`
+- `last_used_at`
+
+## diet_templates
+
+用户饮食模板。应用模板时复制 `items` 生成新记录，不修改模板本身。
+
+- `user_id`
+- `openid`
+- `name`
+- `template_type`：`breakfast`、`lunch`、`dinner`、`snack`、`custom`
+- `default_meal_type`
+- `items`：食物 ID、名称、重量、餐次和备注快照
+- `item_count`
+
+## reminder_settings
+
+用户订阅消息提醒设置，不存储营销标签或无关个人信息。
+
+- `user_id`
+- `openid`
+- `reminder_type`：`breakfast`、`lunch`、`dinner`、`water`、`exercise`、`weight`
+- `reminder_time`：`HH:mm`
+- `enabled`
+- `authorization_status`：`not_requested`、`accept`、`long_term`、`consumed`
+- `template_id`
+- `authorized_at`
+- `last_sent_date`
+- `last_sent_at`
+
+## 权限建议
+
+- `health_profiles`、`fitness_goals`、`diet_records`、`exercise_records`、`body_records`、`checkin_records`、`favorite_foods`、`diet_templates`、`reminder_settings`、`feedbacks`、`admin_users` 均关闭小程序端直接读写，仅由云函数访问。
+- 云函数从微信上下文获取 `openid`，用户私有查询和写入必须附带该 `openid` 条件。
+- `foods`、`food_categories` 的平台数据也优先通过 `food` 云函数读取，管理写操作仅允许 `admin` 云函数执行。
+
 ## feedbacks
 
 意见反馈。

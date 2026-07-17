@@ -101,10 +101,10 @@
       </view>
     </view>
 
-    <view class="section card panel-card">
+    <view class="section card panel-card" bindtap="goCalendar">
       <view class="panel-head">
         <text class="section-title">今日打卡</text>
-        <text class="muted-text">连续 {{dashboard.streak_days || 0}} 天</text>
+        <text class="muted-text">连续 {{dashboard.streak_days || 0}} 天 · 查看日历</text>
       </view>
       <view class="checkin-row">
         <view class="{{dashboard.diet_checkin_done ? 'checkin-chip active' : 'checkin-chip'}}">
@@ -119,6 +119,25 @@
           <text class="chip-dot"></text>
           <text>体重</text>
         </view>
+      </view>
+    </view>
+
+    <view class="section card panel-card quick-panel">
+      <view class="panel-head">
+        <text class="section-title">快捷记录</text>
+        <text class="muted-text" bindtap="goRecent">最近记录</text>
+      </view>
+      <view wx:if="{{quickFoods.length}}" class="quick-food-grid">
+        <view class="quick-food" wx:for="{{quickFoods}}" wx:key="food_id" data-item="{{item}}" bindtap="quickAdd">
+          <text class="quick-food-name">{{item.food_name || item.name}}</text>
+          <text class="quick-food-meta">{{item.default_amount_g || item.last_amount_g || 100}}g · 去记录</text>
+        </view>
+      </view>
+      <view wx:else class="quick-empty" bindtap="goAddDiet">添加第一条饮食后，可在这里快速复用</view>
+      <view class="quick-links">
+        <button class="quick-link" bindtap="goFavorites">常吃食物</button>
+        <button class="quick-link" bindtap="goRecent">最近记录</button>
+        <button class="quick-link" bindtap="goTemplates">饮食模板</button>
       </view>
     </view>
 

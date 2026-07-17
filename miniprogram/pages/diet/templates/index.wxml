@@ -1,0 +1,34 @@
+<view class="page">
+  <view class="section page-head">
+    <view>
+      <text class="title">饮食模板</text>
+      <text class="subtitle">把一组食物快速添加到今天，添加后仍可单独编辑。</text>
+    </view>
+    <button class="small-button" bindtap="goCreate">新建</button>
+  </view>
+
+  <view wx:if="{{loading && !items.length}}" class="loading-state">正在加载饮食模板</view>
+  <view wx:elif="{{!items.length}}" class="section card empty">
+    <text>还没有饮食模板</text>
+    <text class="muted-text">可将今天的一餐或任意多条记录保存为模板。</text>
+    <button class="primary-button empty-action" bindtap="goCreate">新建模板</button>
+  </view>
+  <view wx:else class="section list">
+    <view class="card template-card" wx:for="{{items}}" wx:key="_id">
+      <view class="template-head">
+        <view>
+          <text class="list-title">{{item.name}}</text>
+          <text class="type-text">{{item.type_label}} · {{item.item_count}} 条</text>
+        </view>
+        <button class="danger-button" data-item="{{item}}" bindtap="removeTemplate">删除</button>
+      </view>
+      <text class="food-names">{{item.food_names}}</text>
+      <view class="template-actions">
+        <picker range="{{mealOptions}}" range-key="label" value="{{item.mealIndex}}" data-index="{{index}}" bindchange="handleMeal">
+          <view class="meal-picker">添加到 {{mealOptions[item.mealIndex].label}}</view>
+        </picker>
+        <button class="small-button add-button" data-index="{{index}}" bindtap="applyTemplate">添加到今天</button>
+      </view>
+    </view>
+  </view>
+</view>

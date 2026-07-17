@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="section">
+    <text class="title">新建饮食模板</text>
+    <text class="subtitle">从今天的饮食记录中选择食物，保存后可重复添加。</text>
+  </view>
+
+  <view class="section card form-card">
+    <view class="field">
+      <text class="label">模板名称 *</text>
+      <input class="input" maxlength="20" value="{{name}}" bindinput="handleName" placeholder="如 工作日早餐" />
+    </view>
+    <view class="field">
+      <text class="label">模板类型 *</text>
+      <picker range="{{templateOptions}}" range-key="label" value="{{templateIndex}}" bindchange="handleTemplateType">
+        <view class="picker-value">{{templateOptions[templateIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">默认添加餐次 *</text>
+      <picker range="{{mealOptions}}" range-key="label" value="{{mealIndex}}" bindchange="handleMeal">
+        <view class="picker-value">{{mealOptions[mealIndex].label}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">选择今日记录</text>
+    <text class="subtitle">已选择 {{selectedIds.length}} 条</text>
+  </view>
+
+  <view wx:if="{{loading && !records.length}}" class="loading-state">正在加载今日饮食</view>
+  <view wx:elif="{{!records.length}}" class="section card empty">
+    <text>今天还没有饮食记录</text>
+    <button class="primary-button empty-action" bindtap="goDiet">先去记录饮食</button>
+  </view>
+  <checkbox-group wx:else class="section list" bindchange="handleSelection">
+    <label class="card record-option" wx:for="{{records}}" wx:key="_id">
+      <checkbox color="#16a05d" value="{{item._id}}" checked="{{item.selected}}" />
+      <view>
+        <text class="list-title">{{item.food_name}} · {{item.amount_g}}g</text>
+        <text class="muted-text">{{item.calorie}} kcal</text>
+      </view>
+    </label>
+  </checkbox-group>
+
+  <button wx:if="{{records.length}}" class="primary-button" loading="{{loading}}" bindtap="saveTemplate">保存模板</button>
+</view>

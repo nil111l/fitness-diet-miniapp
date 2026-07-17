@@ -90,6 +90,15 @@ async function completeCheckin(user, openid, date) {
   await db.collection("checkin_records").add({ data: Object.assign({}, data, { created_at: now }) });
 }
 
+async function removeCheckinIfEmpty(openid, date) {
+  const records = await db.collection("exercise_records").where({ openid, record_date: date, deleted_at: null }).limit(1).get();
+  if (records.data.length) return;
+  const checkins = await db.collection("checkin_records").where({ openid, checkin_date: date, type: "exercise", deleted_at: null }).limit(10).get();
+  for (let i = 0; i < checkins.data.length; i += 1) {
+    await db.collection("checkin_records").doc(checkins.data[i]._id).update({ data: { deleted_at: new Date(), updated_at: new Date() } });
+  }
+}
+
 async function list(event, openid) {
   const date = event.record_date || formatDate();
   const result = await db.collection("exercise_records").where({ openid, record_date: date, deleted_at: null }).orderBy("created_at", "asc").limit(100).get();
@@ -123,6 +132,7 @@ async function upsert(event, openid) {
     if (existing.data.openid !== openid) return fail("FORBIDDEN", "无权编辑该记录");
     await db.collection("exercise_records").doc(record._id).update({ data });
     await completeCheckin(user, openid, data.record_date);
+    if (existing.data.record_date !== data.record_date) await removeCheckinIfEmpty(openid, existing.data.record_date);
     return ok(Object.assign({}, existing.data, data));
   }
 
@@ -137,6 +147,7 @@ async function remove(event, openid) {
   const existing = await db.collection("exercise_records").doc(event.record_id).get();
   if (existing.data.openid !== openid) return fail("FORBIDDEN", "无权删除该记录");
   await db.collection("exercise_records").doc(event.record_id).update({ data: { deleted_at: new Date(), updated_at: new Date() } });
+  await removeCheckinIfEmpty(openid, existing.data.record_date);
   return ok({ removed: true });
 }
 
