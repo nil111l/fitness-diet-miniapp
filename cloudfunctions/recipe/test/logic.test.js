@@ -4,10 +4,22 @@ const assert = require("node:assert/strict");
 const {
   calculateNutrition,
   scaleRecipe,
+  buildDefaultRecipeSeeds,
   buildMealPlan,
   replaceMealRecipe,
   replaceMealForRange
 } = require("../lib");
+
+const defaultFoods = [
+  { _id: "rice", name: "米饭", calorie_per_100g: 116, protein_per_100g: 2.6, carb_per_100g: 25.9, fat_per_100g: 0.3 },
+  { _id: "bread", name: "全麦面包", calorie_per_100g: 247, protein_per_100g: 13, carb_per_100g: 41, fat_per_100g: 4.2 },
+  { _id: "chicken", name: "鸡胸肉", calorie_per_100g: 133, protein_per_100g: 24.6, carb_per_100g: 0, fat_per_100g: 3 },
+  { _id: "egg", name: "鸡蛋", calorie_per_100g: 144, protein_per_100g: 13.3, carb_per_100g: 2.8, fat_per_100g: 8.8 },
+  { _id: "milk", name: "牛奶", calorie_per_100g: 54, protein_per_100g: 3, carb_per_100g: 3.4, fat_per_100g: 3.2 },
+  { _id: "broccoli", name: "西兰花", calorie_per_100g: 36, protein_per_100g: 4.1, carb_per_100g: 4.3, fat_per_100g: 0.6 },
+  { _id: "apple", name: "苹果", calorie_per_100g: 53, protein_per_100g: 0.4, carb_per_100g: 13.7, fat_per_100g: 0.2 },
+  { _id: "banana", name: "香蕉", calorie_per_100g: 93, protein_per_100g: 1.4, carb_per_100g: 22, fat_per_100g: 0.2 }
+];
 
 test("按平台食材每百克营养和食材重量计算每份营养", () => {
   const foodsById = {
@@ -49,6 +61,24 @@ test("调整份量时同步缩放营养和食材重量", () => {
     carb: 67.5,
     fat: 15,
     ingredients: [{ food_id: "rice", food_name: "米饭", amount_g: 225 }]
+  });
+});
+
+test("基础食谱可为所有目标生成 2100-2400 千卡的四餐计划", () => {
+  const recipes = buildDefaultRecipeSeeds(defaultFoods).map((item, index) => Object.assign({
+    _id: `seed-${index}`,
+    status: "active"
+  }, item));
+
+  ["lose_weight", "gain_muscle", "maintain"].forEach((goal) => {
+    const plan = buildMealPlan(recipes, {
+      goal,
+      calorie_min: 2100,
+      calorie_max: 2400
+    });
+    assert.equal(plan.complete, true);
+    assert.equal(plan.within_range, true);
+    assert.deepEqual(plan.meals.map((item) => item.meal_type), ["breakfast", "lunch", "dinner", "snack"]);
   });
 });
 

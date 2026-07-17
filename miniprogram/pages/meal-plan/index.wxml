@@ -27,7 +27,7 @@
         <text class="list-title recipe-name">{{item.recipe.name}}</text>
         <text class="muted-text">蛋白 {{item.recipe.protein}}g · 碳水 {{item.recipe.carb}}g · 脂肪 {{item.recipe.fat}}g</text>
       </view>
-      <button class="replace-button" data-meal="{{item.meal_type}}" bindtap="replaceMeal">换一个</button>
+      <view class="replace-button" role="button" aria-label="更换{{item.meal_label}}食谱" hover-class="replace-button-hover" data-meal="{{item.meal_type}}" bindtap="replaceMeal">换一个</view>
     </view>
     <button class="primary-button add-plan-button" bindtap="addToday" loading="{{adding}}" disabled="{{adding}}">一键加入今日饮食</button>
   </view>

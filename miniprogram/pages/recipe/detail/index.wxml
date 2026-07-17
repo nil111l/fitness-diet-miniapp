@@ -10,11 +10,11 @@
   </view>
 
   <view class="portion-bar">
-    <view><text class="section-title">营养与份量</text><text class="muted-text">按当前份量同步计算</text></view>
+    <view class="portion-copy"><text class="section-title">营养与份量</text><text class="muted-text">按当前份量同步计算</text></view>
     <view class="stepper">
-      <button class="stepper-button" data-delta="-0.5" bindtap="changeServings">−</button>
+      <view class="stepper-button" role="button" aria-label="减少 0.5 份" hover-class="stepper-button-hover" data-delta="-0.5" bindtap="changeServings">−</view>
       <text class="stepper-value">{{servings}} 份</text>
-      <button class="stepper-button" data-delta="0.5" bindtap="changeServings">＋</button>
+      <view class="stepper-button" role="button" aria-label="增加 0.5 份" hover-class="stepper-button-hover" data-delta="0.5" bindtap="changeServings">＋</view>
     </view>
   </view>
   <view class="nutrition-panel">

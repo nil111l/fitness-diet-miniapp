@@ -5,6 +5,7 @@ const {
   round1,
   calculateNutrition,
   scaleRecipe,
+  buildDefaultRecipeSeeds,
   buildMealPlan,
   replaceMealForRange
 } = require("./lib");
@@ -131,11 +132,12 @@ async function requireAdmin(openid) {
 }
 
 async function ensureDefaultTags() {
-  const result = await db.collection("recipe_categories").where({ deleted_at: null }).limit(1).get();
-  if (result.data.length) return;
+  const tags = await queryAll("recipe_categories", { deleted_at: null }, "sort_order", "asc");
+  const names = new Set(tags.map((item) => item.name));
   const now = new Date();
   for (let index = 0; index < DEFAULT_TAGS.length; index += 1) {
-    await db.collection("recipe_categories").add({
+    if (names.has(DEFAULT_TAGS[index])) continue;
+    const result = await db.collection("recipe_categories").add({
       data: {
         name: DEFAULT_TAGS[index],
         sort_order: index + 1,
@@ -145,6 +147,53 @@ async function ensureDefaultTags() {
         deleted_at: null
       }
     });
+    tags.push({
+      _id: result._id,
+      name: DEFAULT_TAGS[index],
+      sort_order: index + 1,
+      status: "active",
+      created_at: now,
+      updated_at: now,
+      deleted_at: null
+    });
+  }
+  return tags;
+}
+
+async function ensureDefaultRecipes() {
+  const seedSource = "phase7-foundation";
+  const existingResult = await db.collection("recipes").where({ seed_source: seedSource }).limit(100).get();
+  const existingKeys = new Set(existingResult.data.map((item) => item.seed_key));
+  if (existingKeys.size >= 12) return;
+
+  const foods = await queryAll("foods", { source: "system", status: "active", deleted_at: null }, "updated_at", "desc");
+  const seeds = buildDefaultRecipeSeeds(foods);
+  if (!seeds.length) return;
+
+  const tags = await ensureDefaultTags();
+  const tagByName = {};
+  tags.forEach((tag) => {
+    if (!tag.deleted_at && !tagByName[tag.name]) tagByName[tag.name] = tag;
+  });
+  const now = new Date();
+  for (let index = 0; index < seeds.length; index += 1) {
+    const seed = seeds[index];
+    if (existingKeys.has(seed.seed_key)) continue;
+    const tagNames = seed.tag_names.filter((name) => tagByName[name]);
+    const data = Object.assign({}, seed, {
+      cover_url: "",
+      tag_ids: tagNames.map((name) => tagByName[name]._id),
+      tags: tagNames,
+      status: "active",
+      seed_source: seedSource,
+      created_by: "system",
+      updated_by: "system",
+      created_at: now,
+      updated_at: now,
+      deleted_at: null
+    });
+    delete data.tag_names;
+    await db.collection("recipes").doc(`phase7-${seed.seed_key}`).set({ data });
   }
 }
 
@@ -178,6 +227,7 @@ function publicRecipe(recipe, includeDetail = false) {
 }
 
 async function listActiveRecipes() {
+  await ensureDefaultRecipes();
   return queryAll("recipes", { status: "active", deleted_at: null }, "updated_at", "desc");
 }
 
@@ -284,7 +334,7 @@ async function createDietRecords(recipeSelections, user, openid) {
 
   await db.runTransaction(async (transaction) => {
     for (let index = 0; index < records.length; index += 1) {
-      await transaction.set(db.collection("diet_records").doc(records[index]._id), records[index].data);
+      await transaction.collection("diet_records").doc(records[index]._id).set({ data: records[index].data });
     }
     const checkin = {
       user_id: user._id,
@@ -296,8 +346,9 @@ async function createDietRecords(recipeSelections, user, openid) {
       updated_at: now,
       deleted_at: null
     };
-    if (existingCheckin) await transaction.update(db.collection("checkin_records").doc(checkinId), checkin);
-    else await transaction.set(db.collection("checkin_records").doc(checkinId), Object.assign({}, checkin, { created_at: now }));
+    const checkinReference = transaction.collection("checkin_records").doc(checkinId);
+    if (existingCheckin) await checkinReference.update({ data: checkin });
+    else await checkinReference.set({ data: Object.assign({}, checkin, { created_at: now }) });
   });
 
   return {

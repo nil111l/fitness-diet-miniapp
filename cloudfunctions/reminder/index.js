@@ -188,15 +188,15 @@ async function dispatchDue() {
         const attemptToken = crypto.randomBytes(16).toString("hex");
         await db.runTransaction(async (transaction) => {
           claimed = false;
-          const reference = db.collection("reminder_settings").doc(setting._id);
-          const currentResult = await transaction.get(reference);
-          const current = currentResult.data();
+          const reference = transaction.collection("reminder_settings").doc(setting._id);
+          const currentResult = await reference.get();
+          const current = currentResult.data;
           if (!current || !current.enabled || current.deleted_at || current.reminder_time !== clock.time) return;
           if (current.last_attempt_date === clock.date) {
             claimed = current.last_attempt_token === attemptToken;
             return;
           }
-          await transaction.update(reference, { last_attempt_date: clock.date, last_attempt_token: attemptToken, last_attempt_at: new Date(), updated_at: new Date() });
+          await reference.update({ data: { last_attempt_date: clock.date, last_attempt_token: attemptToken, last_attempt_at: new Date(), updated_at: new Date() } });
           claimed = true;
         });
         if (!claimed) continue;

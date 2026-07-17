@@ -216,7 +216,7 @@ async function createRecordsAtomically(entries, user, openid) {
       const item = created[i];
       const data = Object.assign({}, item);
       delete data._id;
-      await transaction.set(db.collection("diet_records").doc(item._id), data);
+      await transaction.collection("diet_records").doc(item._id).set({ data });
     }
     for (let i = 0; i < checkins.length; i += 1) {
       const item = checkins[i];
@@ -230,8 +230,9 @@ async function createRecordsAtomically(entries, user, openid) {
         updated_at: now,
         deleted_at: null
       };
-      if (item.existing) await transaction.update(db.collection("checkin_records").doc(item.existing._id), data);
-      else await transaction.set(db.collection("checkin_records").doc(item.id), Object.assign({}, data, { created_at: now }));
+      const checkinReference = transaction.collection("checkin_records").doc(item.id);
+      if (item.existing) await checkinReference.update({ data });
+      else await checkinReference.set({ data: Object.assign({}, data, { created_at: now }) });
     }
   });
   return created;

@@ -19,11 +19,15 @@ Page({
   },
 
   groupRecords(records) {
-    const meals = MEAL_OPTIONS.map((meal) => ({
-      label: meal.label,
-      value: meal.value,
-      records: records.filter((item) => item.meal_type === meal.value)
-    }));
+    const meals = MEAL_OPTIONS.map((meal) => {
+      const mealRecords = records.filter((item) => item.meal_type === meal.value);
+      return {
+        label: meal.label,
+        value: meal.value,
+        records: mealRecords,
+        calorie: Math.round(mealRecords.reduce((total, item) => total + Number(item.calorie || 0), 0) * 10) / 10
+      };
+    });
     const summary = records.reduce((total, item) => ({
       calorie: Math.round((total.calorie + Number(item.calorie || 0)) * 10) / 10,
       protein: Math.round((total.protein + Number(item.protein || 0)) * 10) / 10,
