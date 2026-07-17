@@ -9,6 +9,8 @@ Page({
       { title: "食材分类", url: "/pages/admin/categories/index" },
       { title: "食材管理", url: "/pages/admin/foods/index" },
       { title: "食谱管理", url: "/pages/admin/recipes/index" },
+      { title: "动作管理", url: "/pages/admin/actions/index" },
+      { title: "训练计划管理", url: "/pages/admin/workout-plans/index" },
       { title: "反馈管理", url: "/pages/admin/feedback/index" }
     ]
   },

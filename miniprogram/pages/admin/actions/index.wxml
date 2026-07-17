@@ -1,0 +1,14 @@
+<view class="page admin-actions-page">
+  <view class="admin-head"><text class="title">动作管理</text><text class="subtitle">维护动作说明、媒体和展示状态。</text></view>
+  <view class="search-row"><input class="input search-input" value="{{keyword}}" placeholder="搜索动作名称" bindinput="inputKeyword" confirm-type="search" bindconfirm="loadActions" /><view class="search-button" role="button" bindtap="loadActions">搜索</view></view>
+  <view class="create-button" role="button" bindtap="createAction">新增动作</view>
+
+  <view class="admin-list" wx:if="{{actions.length}}">
+    <view class="admin-card" wx:for="{{actions}}" wx:key="_id">
+      <view class="card-top"><view class="title-copy"><text class="list-title">{{item.name}}</text><text class="muted-text">{{item.category_text}} · {{item.difficulty_text}} · {{item.equipment}}</text></view><text class="status {{item.status === 'active' ? 'status-active' : ''}}">{{item.status === 'active' ? '已上架' : '已下架'}}</text></view>
+      <text class="target-text">目标肌群：{{item.target_text}}</text>
+      <view class="action-row"><view class="row-button" role="button" data-id="{{item._id}}" bindtap="editAction">编辑</view><view class="row-button {{item.status === 'active' ? 'danger-text' : 'primary-text'}}" role="button" data-item="{{item}}" bindtap="toggleStatus">{{item.status === 'active' ? '下架' : '上架'}}</view></view>
+    </view>
+  </view>
+  <view class="card empty" wx:else><text class="empty-title">暂无动作</text><text class="muted-text">可新增动作后再配置训练计划。</text></view>
+</view>

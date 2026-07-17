@@ -37,7 +37,16 @@
     "pages/meal-plan/index",
     "pages/admin/recipes/index",
     "pages/admin/recipes/edit/index",
-    "pages/admin/recipe-tags/index"
+    "pages/admin/recipe-tags/index",
+    "pages/workout/actions/index",
+    "pages/workout/action-detail/index",
+    "pages/workout/plans/index",
+    "pages/workout/plan-detail/index",
+    "pages/workout/today/index",
+    "pages/admin/actions/index",
+    "pages/admin/actions/edit/index",
+    "pages/admin/workout-plans/index",
+    "pages/admin/workout-plans/edit/index"
   ],
   "window": {
     "backgroundColor": "#F5F7F6",

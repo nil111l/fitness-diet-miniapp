@@ -1,0 +1,29 @@
+<view class="page plan-list-page">
+  <view class="page-head">
+    <text class="title">训练计划</text>
+    <text class="subtitle">选择与当前目标和训练场景匹配的免费计划。</text>
+  </view>
+
+  <scroll-view class="type-scroll" scroll-x enhanced show-scrollbar="false">
+    <view class="type-row"><view class="type-chip {{selectedType === item.value ? 'type-chip-active' : ''}}" wx:for="{{planTypes}}" wx:key="value" role="button" data-value="{{item.value}}" bindtap="selectType">{{item.label}}</view></view>
+  </scroll-view>
+
+  <view class="plan-list" wx:if="{{plans.length}}">
+    <view class="plan-card" wx:for="{{plans}}" wx:key="_id" role="button" data-id="{{item._id}}" bindtap="openDetail">
+      <image wx:if="{{item.cover_url}}" class="plan-cover" mode="aspectFill" src="{{item.cover_url}}" />
+      <view wx:else class="plan-cover plan-cover-fallback"><text class="fallback-type">{{item.plan_type_text}}</text><text class="fallback-duration">{{item.session_duration_min}} 分钟</text></view>
+      <view class="plan-copy">
+        <view class="plan-title-line"><text class="plan-name">{{item.name}}</text><text class="difficulty-tag">{{item.difficulty_text}}</text></view>
+        <text class="plan-intro">{{item.intro}}</text>
+        <view class="plan-meta"><text>{{item.duration_weeks}} 周</text><text>每周 {{item.weekly_frequency}} 次</text><text>{{item.action_count}} 个动作</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card empty" wx:elif="{{!loading}}">
+    <text class="empty-title">{{loadFailed ? '训练计划暂时无法加载' : '该类型暂无已上架计划'}}</text>
+    <text class="muted-text">可查看其他类型的训练计划。</text>
+    <view class="empty-action" role="button" bindtap="clearFilter">查看全部</view>
+  </view>
+  <view class="loading-state" wx:if="{{loading && plans.length}}">正在加载更多计划...</view>
+</view>

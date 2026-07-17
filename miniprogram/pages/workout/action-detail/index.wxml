@@ -1,0 +1,32 @@
+<view class="page action-detail-page" wx:if="{{action}}">
+  <image wx:if="{{action.video_url && action.is_animation}}" class="action-media" src="{{action.video_url}}" mode="aspectFit" />
+  <video wx:elif="{{action.video_url}}" class="action-media" src="{{action.video_url}}" controls object-fit="cover" />
+  <image wx:elif="{{action.cover_url}}" class="action-media" src="{{action.cover_url}}" mode="aspectFill" />
+  <view wx:else class="action-media media-fallback"><text class="media-category">{{action.category_text}}</text><text class="media-name">{{action.name}}</text></view>
+
+  <view class="detail-head">
+    <view class="tag-line"><text class="tag">{{action.category_text}}</text><text class="tag">{{action.difficulty_text}}</text></view>
+    <text class="title">{{action.name}}</text>
+  </view>
+
+  <view class="fact-grid">
+    <view class="fact-item"><text class="fact-label">目标肌群</text><text class="fact-value">{{action.target_text}}</text></view>
+    <view class="fact-item"><text class="fact-label">辅助肌群</text><text class="fact-value">{{action.secondary_text}}</text></view>
+    <view class="fact-item"><text class="fact-label">所需器械</text><text class="fact-value">{{action.equipment}}</text></view>
+  </view>
+
+  <view class="detail-section">
+    <text class="section-title">动作步骤</text>
+    <view class="number-row" wx:for="{{action.steps}}" wx:key="index"><text class="number">{{index + 1}}</text><text class="row-text">{{item}}</text></view>
+  </view>
+  <view class="detail-section">
+    <text class="section-title">常见错误</text>
+    <view class="bullet-row" wx:for="{{action.common_errors}}" wx:key="index"><text class="bullet"></text><text class="row-text">{{item}}</text></view>
+  </view>
+  <view class="detail-section notice-section">
+    <text class="section-title">注意事项</text>
+    <view class="bullet-row" wx:for="{{action.precautions}}" wx:key="index"><text class="bullet notice-bullet"></text><text class="row-text">{{item}}</text></view>
+  </view>
+</view>
+<view class="loading-state" wx:elif="{{loading}}">正在加载动作...</view>
+<view class="page" wx:else><view class="card empty"><text class="empty-title">动作暂时无法打开</text><text class="muted-text">动作可能已下架，请返回动作库重试。</text></view></view>

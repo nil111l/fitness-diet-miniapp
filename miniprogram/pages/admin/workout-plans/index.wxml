@@ -1,0 +1,14 @@
+<view class="page admin-plans-page">
+  <view class="admin-head"><text class="title">训练计划管理</text><text class="subtitle">维护免费训练计划、动作编排和上下架状态。</text></view>
+  <view class="search-row"><input class="input search-input" value="{{keyword}}" placeholder="搜索计划名称" bindinput="inputKeyword" confirm-type="search" bindconfirm="loadPlans" /><view class="search-button" role="button" bindtap="loadPlans">搜索</view></view>
+  <view class="create-button" role="button" bindtap="createPlan">新增训练计划</view>
+
+  <view class="admin-list" wx:if="{{plans.length}}">
+    <view class="admin-card" wx:for="{{plans}}" wx:key="_id">
+      <view class="card-top"><view class="title-copy"><text class="list-title">{{item.name}}</text><text class="muted-text">{{item.plan_type_text}} · {{item.difficulty_text}}</text></view><text class="status {{item.status === 'active' ? 'status-active' : ''}}">{{item.status === 'active' ? '已上架' : '已下架'}}</text></view>
+      <text class="plan-meta">{{item.duration_weeks}} 周 · 每周 {{item.weekly_frequency}} 次 · {{item.session_duration_min}} 分钟 · {{item.action_count}} 个动作</text>
+      <view class="action-row"><view class="row-button" role="button" data-id="{{item._id}}" bindtap="editPlan">编辑</view><view class="row-button {{item.status === 'active' ? 'danger-text' : 'primary-text'}}" role="button" data-item="{{item}}" bindtap="toggleStatus">{{item.status === 'active' ? '下架' : '上架'}}</view></view>
+    </view>
+  </view>
+  <view class="card empty" wx:else><text class="empty-title">暂无训练计划</text><text class="muted-text">请先维护已上架动作，再创建训练计划。</text></view>
+</view>

@@ -22,6 +22,15 @@
     </view>
   </view>
 
+  <view class="section training-section">
+    <view class="training-head"><text class="section-title">训练</text><text class="training-caption">动作学习与计划执行</text></view>
+    <view class="training-menu">
+      <view class="training-row" role="button" bindtap="goActionLibrary"><view><text class="training-title">动作库</text><text class="training-desc">按部位搜索动作要点</text></view><text class="training-arrow">›</text></view>
+      <view class="training-row" role="button" bindtap="goWorkoutPlans"><view><text class="training-title">训练计划</text><text class="training-desc">选择目标和训练场景</text></view><text class="training-arrow">›</text></view>
+      <view class="training-row today-training-row" role="button" bindtap="goTodayWorkout"><view><text class="training-title">今日训练</text><text class="training-desc">执行当前计划并记录消耗</text></view><text class="training-arrow">›</text></view>
+    </view>
+  </view>
+
   <view class="section list">
     <view class="card record-card" bindtap="goDietDetail">
       <text class="record-title">今日饮食</text>

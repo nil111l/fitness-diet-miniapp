@@ -97,6 +97,12 @@ Spec：`.agents/specs/06-retention-reminders-efficiency.spec.md`
 
 Spec：`.agents/specs/07-recipes-meal-plans.spec.md`
 
+### Phase 8: 训练计划与动作库
+
+目标：提供免费动作库、基础训练计划和今日训练执行闭环。
+
+Spec：`.agents/specs/08-workout-plans-action-library.spec.md`
+
 ## 5. 第一版禁止扩展范围
 
 以下功能不要在 MVP 阶段实现，除非用户重新确认：
@@ -182,3 +188,12 @@ Spec：`.agents/specs/07-recipes-meal-plans.spec.md`
 - 首页优先突出今日推荐热量、已摄入、剩余热量、运动消耗和三大营养素进度。
 - 新页面优先复用 `miniprogram/app.wxss` 中的颜色、字体层级、卡片、按钮、表单、列表、空状态和加载状态基础类。
 - 不引入大面积渐变、复杂装饰、装饰光斑、无意义插画或 MVP 外业务入口。
+
+## 12. 部署提示规则
+
+每次代码操作完成后，必须向用户明确说明需要重新上传或部署的内容：
+
+- 修改 `miniprogram/` 时，说明需要在微信开发者工具重新编译；需要提交审核时，说明需重新上传小程序版本。
+- 修改 `cloudfunctions/<name>/` 时，逐个列出需重新上传的云函数名称，并说明选择“上传并部署：云端安装依赖”。
+- 涉及云数据库集合、索引、权限或初始化数据时，单独列出需要在云开发控制台完成的操作。
+- 只修改文档或测试时，明确说明无需重新上传小程序或云函数。

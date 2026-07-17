@@ -80,6 +80,22 @@
 - `adminSave`、`adminUpdateStatus`、`adminSetRecommended`：管理员新增、编辑、上架、下架和设置推荐。
 - `adminListTags`、`adminSaveTag`、`adminDeleteTag`：管理员维护食谱标签。
 
+## workout
+
+用户私有计划和训练会话均从微信上下文获取 `openid`，不接受前端传入用户身份。
+
+- `filters`：读取动作分类、计划类型和难度选项。
+- `actionList`：分页读取已上架动作，支持 `category`、`keyword` 筛选。
+- `actionDetail`：读取已上架动作的完整说明。
+- `planList`：分页读取已上架且动作完整的训练计划，支持 `plan_type` 筛选。
+- `planDetail`：读取计划详情和动作编排。
+- `selectPlan`、`currentPlan`：设置和读取当前用户的训练计划。
+- `todayWorkout`：获取或创建带计划快照的当日训练会话。
+- `saveWorkoutProgress`：保存逐项完成状态、实际次数和重量草稿。
+- `completeWorkout`：校验逐项完成结果，幂等生成运动记录和运动打卡。
+- `adminActionList`、`adminActionDetail`、`adminSaveAction`、`adminUpdateActionStatus`：管理员维护动作。
+- `adminPlanList`、`adminPlanDetail`、`adminActionOptions`、`adminSavePlan`、`adminUpdatePlanStatus`：管理员维护训练计划。
+
 ## feedback
 
 - `submit`：提交意见反馈，支持类型、内容、图片附件和联系方式。

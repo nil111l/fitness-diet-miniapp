@@ -1,0 +1,37 @@
+<view class="page action-library-page">
+  <view class="page-head">
+    <text class="title">动作库</text>
+    <text class="subtitle">按训练部位查看动作要点与注意事项。</text>
+  </view>
+
+  <view class="search-row">
+    <input class="input search-input" value="{{keyword}}" placeholder="搜索动作或目标肌群" confirm-type="search" bindinput="inputKeyword" bindconfirm="search" />
+    <view class="search-button" role="button" aria-label="搜索动作" hover-class="search-button-hover" bindtap="search">搜索</view>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="false">
+    <view class="category-row">
+      <view class="category-chip {{selectedCategory === item.value ? 'category-chip-active' : ''}}" wx:for="{{categories}}" wx:key="value" role="button" data-value="{{item.value}}" bindtap="selectCategory">{{item.label}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="action-list" wx:if="{{actions.length}}">
+    <view class="action-card" wx:for="{{actions}}" wx:key="_id" role="button" data-id="{{item._id}}" bindtap="openDetail">
+      <image wx:if="{{item.cover_url}}" class="action-cover" mode="aspectFill" src="{{item.cover_url}}" />
+      <view wx:else class="action-cover action-cover-fallback"><text>{{item.category_text}}</text></view>
+      <view class="action-copy">
+        <view class="action-title-line"><text class="action-name">{{item.name}}</text><text class="difficulty-tag">{{item.difficulty_text}}</text></view>
+        <text class="action-target">{{item.target_text}}</text>
+        <text class="action-meta">{{item.equipment}} · {{item.category_text}}</text>
+      </view>
+      <text class="action-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="card empty" wx:elif="{{!loading}}">
+    <text class="empty-title">{{loadFailed ? '动作暂时无法加载' : '没有找到符合条件的动作'}}</text>
+    <text class="muted-text">请调整搜索词或分类后重试。</text>
+    <view class="empty-action" role="button" bindtap="clearFilters">清除筛选</view>
+  </view>
+  <view class="loading-state" wx:if="{{loading && actions.length}}">正在加载更多动作...</view>
+</view>

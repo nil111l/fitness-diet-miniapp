@@ -1,0 +1,42 @@
+<view class="page today-workout-page" wx:if="{{hasPlan && plan}}">
+  <view class="workout-head">
+    <view class="head-copy"><text class="eyebrow">今日训练</text><text class="title">{{plan.name}}</text><text class="subtitle">{{plan.session_duration_min}} 分钟 · {{plan.difficulty_text}} · {{plan.action_count}} 个动作</text></view>
+    <text class="progress-count">{{completedCount}} / {{items.length}}</text>
+  </view>
+  <view class="progress-track"><view class="progress-fill" style="width: {{completedPercent}}%;"></view></view>
+
+  <view wx:if="{{session.status === 'completed'}}" class="completed-panel">
+    <text class="completed-title">今日训练已完成</text>
+    <text class="completed-value">{{session.calorie_burned}} kcal</text>
+    <text class="completed-desc">运动记录和运动打卡已同步。</text>
+  </view>
+
+  <view class="today-action-list">
+    <view class="today-action-card {{item.completed ? 'today-action-completed' : ''}}" wx:for="{{items}}" wx:key="action_id">
+      <view class="action-head">
+        <view class="check-control {{item.completed ? 'check-control-active' : ''}}" role="checkbox" aria-checked="{{item.completed}}" data-index="{{index}}" bindtap="toggleCompleted">{{item.completed ? '✓' : ''}}</view>
+        <view class="action-copy" role="button" data-id="{{item.action_id}}" bindtap="openAction"><text class="action-name">{{item.action_name}}</text><text class="action-plan">{{item.sets}} 组 · {{item.reps}} · 休息 {{item.rest_sec}} 秒</text></view>
+      </view>
+      <view class="actual-grid">
+        <view class="actual-field"><text class="actual-label">实际次数</text><input class="actual-input" type="number" value="{{item.actual_reps || ''}}" placeholder="可选" disabled="{{session.status === 'completed'}}" data-index="{{index}}" data-field="actual_reps" bindinput="inputActual" bindblur="saveProgress" /></view>
+        <view class="actual-field"><text class="actual-label">重量（kg）</text><input class="actual-input" type="digit" value="{{item.weight_kg || ''}}" placeholder="可选" disabled="{{session.status === 'completed'}}" data-index="{{index}}" data-field="weight_kg" bindinput="inputActual" bindblur="saveProgress" /></view>
+      </view>
+      <view class="action-footer">
+        <view class="detail-link" role="button" data-id="{{item.action_id}}" bindtap="openAction">查看动作要点</view>
+        <view wx:if="{{session.status !== 'completed'}}" class="rest-button {{restActionId === item.action_id ? 'rest-button-active' : ''}}" role="button" data-id="{{item.action_id}}" data-seconds="{{item.rest_sec}}" bindtap="startRest">{{restActionId === item.action_id ? restRemaining + ' 秒' : '休息计时'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{session.status !== 'completed'}}" class="complete-button {{completedCount === items.length ? '' : 'complete-button-disabled'}}" role="button" bindtap="completeWorkout">{{completing ? '正在完成...' : '完成今日训练'}}</view>
+  <view wx:else class="secondary-action" role="button" bindtap="goHome">查看首页运动消耗</view>
+</view>
+
+<view class="loading-state" wx:elif="{{loading}}">正在准备今日训练...</view>
+<view class="page" wx:else>
+  <view class="card empty no-plan-empty">
+    <text class="empty-title">{{selectionInvalid ? '当前计划内容已调整' : '还没有当前训练计划'}}</text>
+    <text class="muted-text">{{selectionInvalid ? '计划或其中的动作已下架，请重新选择。' : '选择一个计划后，这里会展示今日动作。'}}</text>
+    <view class="empty-action" role="button" bindtap="goPlans">选择训练计划</view>
+  </view>
+</view>

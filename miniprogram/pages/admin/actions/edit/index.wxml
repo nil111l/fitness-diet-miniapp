@@ -1,0 +1,20 @@
+<view class="page action-edit-page" wx:if="{{!loading && !loadFailed}}">
+  <view class="section"><text class="title">{{actionId ? '编辑动作' : '新增动作'}}</text><text class="subtitle">填写完整动作要点，上架后用户端可见。</text></view>
+  <view class="section card form-card">
+    <view class="field"><text class="label">动作名称 *</text><input class="input" value="{{form.name}}" maxlength="40" data-field="name" bindinput="inputField" /></view>
+    <view class="field"><text class="label">动作分类 *</text><picker range="{{categories}}" range-key="label" value="{{categoryIndex}}" bindchange="changeCategory"><view class="picker-value">{{categories[categoryIndex].label}}</view></picker></view>
+    <view class="field"><text class="label">目标肌群 *</text><input class="input" value="{{form.target_muscles_text}}" placeholder="多个肌群用顿号分隔" data-field="target_muscles_text" bindinput="inputField" /></view>
+    <view class="field"><text class="label">辅助肌群</text><input class="input" value="{{form.secondary_muscles_text}}" placeholder="多个肌群用顿号分隔" data-field="secondary_muscles_text" bindinput="inputField" /></view>
+    <view class="field"><text class="label">难度 *</text><picker range="{{difficulties}}" range-key="label" value="{{difficultyIndex}}" bindchange="changeDifficulty"><view class="picker-value">{{difficulties[difficultyIndex].label}}</view></picker></view>
+    <view class="field"><text class="label">所需器械 *</text><input class="input" value="{{form.equipment}}" maxlength="40" data-field="equipment" bindinput="inputField" /></view>
+    <view class="field"><text class="label">动作步骤 *</text><textarea class="textarea" value="{{form.steps_text}}" placeholder="每行一个步骤" data-field="steps_text" bindinput="inputField"></textarea></view>
+    <view class="field"><text class="label">常见错误 *</text><textarea class="textarea" value="{{form.common_errors_text}}" placeholder="每行一项" data-field="common_errors_text" bindinput="inputField"></textarea></view>
+    <view class="field"><text class="label">注意事项 *</text><textarea class="textarea" value="{{form.precautions_text}}" placeholder="每行一项" data-field="precautions_text" bindinput="inputField"></textarea></view>
+    <view class="field"><text class="label">封面地址</text><input class="input" value="{{form.cover_url}}" placeholder="https:// 或 cloud://" data-field="cover_url" bindinput="inputField" /></view>
+    <view class="field"><text class="label">视频或动图地址</text><input class="input" value="{{form.video_url}}" placeholder="https:// 或 cloud://" data-field="video_url" bindinput="inputField" /></view>
+    <view class="switch-row"><view><text class="label">上架状态</text><text class="muted-text">关闭后小程序端不可见。</text></view><switch checked="{{form.status === 'active'}}" color="#16a05d" bindchange="toggleStatus" /></view>
+  </view>
+  <view class="save-button" role="button" bindtap="saveAction">{{saving ? '正在保存...' : '保存动作'}}</view>
+</view>
+<view class="page" wx:elif="{{loadFailed}}"><view class="card empty"><text class="empty-title">动作数据加载失败</text><text class="muted-text">为避免覆盖原内容，请重新加载后再编辑。</text><view class="secondary-button" role="button" bindtap="loadPage">重新加载</view></view></view>
+<view class="loading-state" wx:else>正在加载动作...</view>

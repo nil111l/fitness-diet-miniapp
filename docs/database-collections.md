@@ -156,6 +156,75 @@
 - `intensity`
 - `calorie_burned`
 - `note`
+- `source`：普通手工记录可为空，训练计划生成时为 `workout_plan`。
+- `workout_plan_id`：由今日训练生成时记录来源计划。
+- `workout_session_id`：由今日训练生成时记录来源会话。
+
+## exercise_actions
+
+平台动作库，公开读取和后台写入统一通过 `workout` 云函数。
+
+- `name`
+- `category`：`chest`、`back`、`shoulder`、`arms`、`core`、`glutes_legs`、`full_body`、`cardio`、`stretch`。
+- `target_muscles`
+- `secondary_muscles`
+- `difficulty`：`easy`、`medium`、`hard`。
+- `equipment`
+- `steps`
+- `common_errors`
+- `precautions`
+- `cover_url`
+- `video_url`
+- `status`：`active`、`inactive`。
+- `created_by`
+- `updated_by`
+
+## workout_plans
+
+平台免费训练计划。第一版将动作编排作为 `actions` 快照内嵌保存，不单独建立 `workout_plan_actions` 集合。
+
+- `name`
+- `intro`
+- `cover_url`
+- `plan_type`：`fat_loss`、`muscle_gain`、`shaping`、`beginner`、`home`、`gym`。
+- `goal`
+- `difficulty`：`easy`、`medium`、`hard`。
+- `duration_weeks`
+- `weekly_frequency`
+- `session_duration_min`
+- `actions`：`action_id`、`sets`、`reps`、`rest_sec`、`sort_order`。
+- `status`：`active`、`inactive`。
+- `created_by`
+- `updated_by`
+
+## user_workout_plans
+
+用户当前训练计划，仅允许对应用户通过云函数读写。
+
+- `user_id`
+- `openid`
+- `plan_id`
+- `status`：`active`、`inactive`。
+- `start_date`
+- `selected_at`
+- `ended_at`
+
+## workout_sessions
+
+用户每日执行训练计划的会话。
+
+- `user_id`
+- `openid`
+- `plan_id`
+- `selection_id`
+- `workout_date`
+- `status`：`draft`、`completed`。
+- `plan_snapshot`：开始训练时的计划与动作快照，避免后台后续编辑影响当日训练。
+- `items`：动作名称、计划组数/次数/休息、完成状态、实际次数和重量。
+- `duration_min`
+- `calorie_burned`
+- `exercise_record_id`
+- `completed_at`
 
 ## body_records
 
@@ -225,10 +294,11 @@
 
 ## 权限建议
 
-- `health_profiles`、`fitness_goals`、`diet_records`、`exercise_records`、`body_records`、`checkin_records`、`favorite_foods`、`diet_templates`、`reminder_settings`、`recipes`、`recipe_categories`、`feedbacks`、`admin_users` 均关闭小程序端直接读写，仅由云函数访问。
+- `health_profiles`、`fitness_goals`、`diet_records`、`exercise_records`、`body_records`、`checkin_records`、`favorite_foods`、`diet_templates`、`reminder_settings`、`recipes`、`recipe_categories`、`exercise_actions`、`workout_plans`、`user_workout_plans`、`workout_sessions`、`feedbacks`、`admin_users` 均关闭小程序端直接读写，仅由云函数访问。
 - 云函数从微信上下文获取 `openid`，用户私有查询和写入必须附带该 `openid` 条件。
 - `foods`、`food_categories` 的平台数据也优先通过 `food` 云函数读取，管理写操作仅允许 `admin` 云函数执行。
 - `recipes`、`recipe_categories` 的公开读取和管理写入统一通过 `recipe` 云函数；管理动作必须校验 `admin_users`，公开动作只返回 `status=active` 且未删除的数据。
+- `exercise_actions`、`workout_plans` 的用户端读取和管理写入统一通过 `workout` 云函数；管理动作必须校验 `admin_users`，用户端只返回已上架且未删除的完整内容。
 
 ## feedbacks
 

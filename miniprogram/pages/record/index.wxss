@@ -61,3 +61,5 @@
   color: rgba(255, 255, 255, 0.75);
   font-size: 38rpx;
 }
+
+.training-head{display:flex;align-items:baseline;justify-content:space-between;gap:16rpx;margin-bottom:14rpx}.training-caption{color:var(--color-muted);font-size:21rpx}.training-menu{overflow:hidden;border:1rpx solid var(--color-border);border-radius:var(--radius-md);background:var(--color-card)}.training-row{display:flex;min-height:102rpx;align-items:center;justify-content:space-between;gap:18rpx;padding:18rpx 22rpx;border-bottom:1rpx solid var(--color-border)}.training-row:last-child{border-bottom:0}.today-training-row{background:var(--color-primary-tint)}.training-title,.training-desc{display:block}.training-title{color:var(--color-text);font-size:27rpx;font-weight:700}.training-desc{margin-top:6rpx;color:var(--color-muted);font-size:21rpx}.training-arrow{flex:none;color:var(--color-muted);font-size:38rpx}

@@ -1,0 +1,34 @@
+<view class="page plan-edit-page" wx:if="{{!loading && !loadFailed}}">
+  <view class="section"><text class="title">{{planId ? '编辑训练计划' : '新增训练计划'}}</text><text class="subtitle">计划上架前，其中所有动作都必须已上架。</text></view>
+  <view class="section card form-card">
+    <view class="field"><text class="label">计划名称 *</text><input class="input" value="{{form.name}}" maxlength="50" data-field="name" bindinput="inputField" /></view>
+    <view class="field"><text class="label">计划简介 *</text><textarea class="textarea" value="{{form.intro}}" maxlength="240" data-field="intro" bindinput="inputField"></textarea></view>
+    <view class="field"><text class="label">计划类型 *</text><picker range="{{planTypes}}" range-key="label" value="{{planTypeIndex}}" bindchange="changePlanType"><view class="picker-value">{{planTypes[planTypeIndex].label}}</view></picker></view>
+    <view class="field"><text class="label">计划目标 *</text><input class="input" value="{{form.goal}}" maxlength="100" data-field="goal" bindinput="inputField" /></view>
+    <view class="field"><text class="label">难度 *</text><picker range="{{difficulties}}" range-key="label" value="{{difficultyIndex}}" bindchange="changeDifficulty"><view class="picker-value">{{difficulties[difficultyIndex].label}}</view></picker></view>
+    <view class="number-grid">
+      <view class="field"><text class="label">周期（周）*</text><input class="input" type="number" value="{{form.duration_weeks}}" data-field="duration_weeks" bindinput="inputField" /></view>
+      <view class="field"><text class="label">每周次数 *</text><input class="input" type="number" value="{{form.weekly_frequency}}" data-field="weekly_frequency" bindinput="inputField" /></view>
+      <view class="field"><text class="label">单次分钟 *</text><input class="input" type="number" value="{{form.session_duration_min}}" data-field="session_duration_min" bindinput="inputField" /></view>
+    </view>
+    <view class="field"><text class="label">封面地址</text><input class="input" value="{{form.cover_url}}" placeholder="https:// 或 cloud://" data-field="cover_url" bindinput="inputField" /></view>
+    <view class="switch-row"><view><text class="label">上架状态</text><text class="muted-text">关闭后小程序端不可见。</text></view><switch checked="{{form.status === 'active'}}" color="#16a05d" bindchange="toggleStatus" /></view>
+  </view>
+
+  <view class="section action-section">
+    <view class="section-head"><view><text class="section-title">动作编排</text><text class="muted-text">{{form.actions.length}} / 20 个动作</text></view><view class="add-action-button" role="button" bindtap="addAction">添加动作</view></view>
+    <view class="plan-action-card" wx:for="{{form.actions}}" wx:key="index">
+      <view class="action-card-head"><text class="action-index">动作 {{index + 1}}</text><view class="remove-action" role="button" data-index="{{index}}" bindtap="removeAction">移除</view></view>
+      <view class="field"><text class="label">选择动作</text><picker range="{{actionOptions}}" range-key="name" value="{{item.action_index}}" data-index="{{index}}" bindchange="changeAction"><view class="picker-value">{{actionOptions[item.action_index].name}}{{actionOptions[item.action_index].status === 'active' ? '' : '（已下架）'}}</view></picker></view>
+      <view class="action-number-grid">
+        <view class="field"><text class="label">组数</text><input class="input" type="number" value="{{item.sets}}" data-index="{{index}}" data-field="sets" bindinput="inputActionField" /></view>
+        <view class="field"><text class="label">次数/时长</text><input class="input" value="{{item.reps}}" data-index="{{index}}" data-field="reps" bindinput="inputActionField" /></view>
+        <view class="field"><text class="label">休息秒数</text><input class="input" type="number" value="{{item.rest_sec}}" data-index="{{index}}" data-field="rest_sec" bindinput="inputActionField" /></view>
+      </view>
+    </view>
+    <view class="card empty" wx:if="{{!form.actions.length}}"><text class="empty-title">还没有计划动作</text><text class="muted-text">至少添加一个已上架动作。</text></view>
+  </view>
+  <view class="save-button" role="button" bindtap="savePlan">{{saving ? '正在保存...' : '保存训练计划'}}</view>
+</view>
+<view class="page" wx:elif="{{loadFailed}}"><view class="card empty"><text class="empty-title">训练计划加载失败</text><text class="muted-text">为避免覆盖原内容，请重新加载后再编辑。</text><view class="secondary-button" role="button" bindtap="loadPage">重新加载</view></view></view>
+<view class="loading-state" wx:else>正在加载训练计划...</view>

@@ -46,5 +46,17 @@ Page({
 
   goMealPlan() {
     wx.navigateTo({ url: "/pages/meal-plan/index" });
+  },
+
+  goActionLibrary() {
+    wx.navigateTo({ url: "/pages/workout/actions/index" });
+  },
+
+  goWorkoutPlans() {
+    wx.navigateTo({ url: "/pages/workout/plans/index" });
+  },
+
+  goTodayWorkout() {
+    wx.navigateTo({ url: "/pages/workout/today/index" });
   }
 });
