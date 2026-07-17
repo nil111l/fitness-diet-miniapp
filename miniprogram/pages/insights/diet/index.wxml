@@ -1,0 +1,12 @@
+<view class="page">
+  <view class="section"><text class="title">饮食洞察</text><text class="subtitle">根据近期记录提供温和、可执行的管理建议。</text></view>
+  <view class="loading-state" wx:if="{{loading}}">正在分析近期饮食...</view>
+  <view class="card empty" wx:elif="{{loadFailed}}"><text class="empty-title">饮食洞察加载失败</text><view class="secondary-button retry" role="button" bindtap="loadInsights">重新加载</view></view>
+  <block wx:elif="{{result}}">
+    <view class="insight-list" wx:if="{{result.insights.length}}">
+      <view class="insight-card insight-{{item.level}}" wx:for="{{result.insights}}" wx:key="code"><text class="insight-title">{{item.title}}</text><text class="insight-message">{{item.message}}</text></view>
+    </view>
+    <view class="card empty" wx:else><text class="empty-title">近期没有需要特别关注的变化</text><text class="muted-text">继续保持记录，满足规则时这里会给出提示。</text><view class="primary-button retry" role="button" bindtap="goDiet">记录饮食</view></view>
+    <view class="disclaimer">{{result.disclaimer}}</view>
+  </block>
+</view>

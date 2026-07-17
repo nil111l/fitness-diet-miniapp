@@ -180,5 +180,10 @@
         <text class="action-desc">编辑今日记录</text>
       </view>
     </view>
+
+    <view class="section article-panel" wx:if="{{recommendedArticles.length}}">
+      <view class="panel-head"><text class="section-title">健康阅读</text><text class="muted-text" bindtap="goArticles">全部文章</text></view>
+      <view class="home-article" wx:for="{{recommendedArticles}}" wx:key="_id" role="button" data-id="{{item._id}}" bindtap="openArticle"><view class="home-article-copy"><text class="home-article-category">{{item.category_text}}</text><text class="home-article-title">{{item.title}}</text><text class="home-article-summary">{{item.summary}}</text></view><text class="home-article-arrow">›</text></view>
+    </view>
   </block>
 </view>

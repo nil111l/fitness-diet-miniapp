@@ -30,6 +30,8 @@
 - `reminder`
 - `recipe`
 - `workout`
+- `insights`
+- `content`
 - `admin`
 
 也可以使用项目根目录的脚本：
@@ -87,6 +89,15 @@ npm.cmd install
 3. 在云开发控制台将以上四个集合的小程序端权限设置为不可直接读写，用户和管理员统一通过 `workout` 云函数访问。
 4. 后台动作管理和训练计划管理需要 `admin_users` 中处于 `active` 状态的管理员身份。计划上架前，其中所有动作必须已上架。
 5. 完成今日训练后，`workout` 会写入现有 `exercise_records` 和 `checkin_records`，首页与数据页继续通过 `stats` 云函数读取同一套记录，无需额外维护统计副本。
+
+## Phase 9 洞察与内容配置
+
+1. 上传并部署 `insights`、`content` 两个云函数，均选择“云端安装依赖”。
+2. `content` 首次调用会自动创建 `health_articles`、`food_corrections`，并幂等初始化 4 篇免费基础文章；已下架或删除的基础文章不会自动恢复。
+3. 在云开发控制台将 `health_articles`、`food_corrections` 的小程序端权限设置为不可直接读写。文章、纠错和后台维护统一通过 `content` 云函数访问。
+4. `insights` 不创建统计集合，而是实时读取现有原始记录。请确认 `diet_records`、`exercise_records`、`body_records`、`checkin_records`、`fitness_goals` 均已存在并保持不可由客户端直接读写。
+5. 后台文章与食材纠错管理需要 `admin_users` 中处于 `active` 状态的管理员。用户只能查看已上架文章、提交上架平台食材的纠错，并读取自己的纠错历史。
+6. 部署后在真机分别验证：编辑或删除饮食/运动/体重记录后重新进入周总结和月总结，数据应按原始记录即时变化；下架文章后用户端列表与首页推荐均不可见。
 
 ## 常见问题
 

@@ -1,0 +1,8 @@
+<view class="page">
+  <view class="section"><text class="title">健康文章</text><text class="subtitle">饮食、训练和记录方法，内容仅作日常管理参考。</text></view>
+  <view class="search-row"><input class="input search-input" value="{{keyword}}" placeholder="搜索文章" bindinput="inputKeyword" confirm-type="search" bindconfirm="search"/><view class="search-button" role="button" bindtap="search">搜索</view></view>
+  <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="false"><view class="category-row"><view class="category-chip {{selectedCategory === item.value ? 'category-chip-active' : ''}}" wx:for="{{categories}}" wx:key="value" role="button" data-value="{{item.value}}" bindtap="selectCategory">{{item.label}}</view></view></scroll-view>
+  <view class="article-list" wx:if="{{articles.length}}"><view class="article-card" wx:for="{{articles}}" wx:key="_id" role="button" data-id="{{item._id}}" bindtap="openArticle"><image wx:if="{{item.cover_url}}" class="article-cover" src="{{item.cover_url}}" mode="aspectFill"/><view wx:else class="article-cover cover-fallback">{{item.category_text}}</view><view class="article-copy"><view class="article-meta"><text>{{item.category_text}}</text><text wx:if="{{item.is_recommended}}" class="recommend">推荐</text></view><text class="article-title">{{item.title}}</text><text class="article-summary">{{item.summary}}</text></view></view></view>
+  <view class="card empty" wx:elif="{{!loading}}"><text class="empty-title">{{loadFailed ? '文章暂时无法加载' : '没有找到相关文章'}}</text><text class="muted-text">可调整类型或搜索词后重试。</text><view class="secondary-button clear-button" role="button" bindtap="clearFilters">查看全部</view></view>
+  <view class="loading-state" wx:if="{{loading}}">正在加载文章...</view>
+</view>

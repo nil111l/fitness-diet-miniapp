@@ -7,5 +7,9 @@ ${installPath} cloud functions deploy --e ${envId} --n stats --r --project ${pro
 ${installPath} cloud functions deploy --e ${envId} --n exercise --r --project ${projectPath}
 ${installPath} cloud functions deploy --e ${envId} --n body --r --project ${projectPath}
 ${installPath} cloud functions deploy --e ${envId} --n feedback --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n reminder --r --project ${projectPath}
 ${installPath} cloud functions deploy --e ${envId} --n recipe --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n workout --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n insights --r --project ${projectPath}
+${installPath} cloud functions deploy --e ${envId} --n content --r --project ${projectPath}
 ${installPath} cloud functions deploy --e ${envId} --n admin --r --project ${projectPath}

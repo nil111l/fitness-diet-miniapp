@@ -61,5 +61,25 @@ Page({
 
   goWeight() {
     wx.navigateTo({ url: "/pages/weight/index" });
+  },
+
+  goWeekly() {
+    wx.navigateTo({ url: "/pages/insights/weekly/index" });
+  },
+
+  goMonthly() {
+    wx.navigateTo({ url: "/pages/insights/monthly/index" });
+  },
+
+  goDietInsights() {
+    wx.navigateTo({ url: "/pages/insights/diet/index" });
+  },
+
+  goProgress() {
+    wx.navigateTo({ url: "/pages/insights/progress/index" });
+  },
+
+  goArticles() {
+    wx.navigateTo({ url: "/pages/articles/index" });
   }
 });

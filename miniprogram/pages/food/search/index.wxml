@@ -17,6 +17,7 @@
     <button class="filter-button" bindtap="goMyFoods">我的食物</button>
     <button class="filter-button" bindtap="goFavorites">我的常吃</button>
     <button class="filter-button" bindtap="goRecent">最近记录</button>
+    <button class="filter-button" bindtap="goCorrections">纠错记录</button>
   </view>
 
   <view wx:if="{{favorites.length}}" class="section favorite-section">
@@ -44,7 +45,7 @@
             <text> · {{item.calorie_per_100g}} kcal/100g</text>
           </text>
         </view>
-        <text class="food-add">添加</text>
+        <view class="food-actions"><text wx:if="{{item.source === 'system'}}" class="food-correct" data-id="{{item._id}}" catchtap="correctFood">纠错</text><text class="food-add">添加</text></view>
       </view>
     </block>
   </view>

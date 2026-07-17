@@ -96,6 +96,28 @@
 - `adminActionList`、`adminActionDetail`、`adminSaveAction`、`adminUpdateActionStatus`：管理员维护动作。
 - `adminPlanList`、`adminPlanDetail`、`adminActionOptions`、`adminSavePlan`、`adminUpdatePlanStatus`：管理员维护训练计划。
 
+## insights
+
+所有接口均校验当前用户状态，并按微信上下文中的 `openid` 查询原始记录，不接收前端传入的用户身份。
+
+- `weekly`：实时聚合本周平均摄入、训练次数、体重变化、饮食/运动记录天数、最常吃食物和建议。
+- `monthly`：按 `month=YYYY-MM` 实时聚合月度体重变化、平均摄入、运动次数、最长连续打卡、营养素达标情况和下月建议。
+- `dietInsights`：按最近完整自然日执行热量、蛋白质、晚餐占比和漏记四类规则。
+- `targetProgress`：读取当前有效目标、最近体重和本周记录执行情况。
+
+## content
+
+用户端文章接口只返回已上架内容；纠错记录按当前用户隔离。所有 `admin*` 接口均校验 `admin_users` 中当前 openid 的有效管理员身份。
+
+- `filters`：读取文章类型和食材纠错类型。
+- `articleList`、`articleDetail`、`recommendedArticles`：分页读取文章、读取详情和首页推荐文章。
+- `submitCorrection`：对仍处于上架状态的平台食材提交纠错。
+- `myCorrections`：分页读取当前用户自己的纠错记录和处理结果。
+- `adminArticleList`、`adminArticleDetail`、`adminSaveArticle`：管理员读取、新增和编辑文章。
+- `adminUpdateArticleStatus`、`adminSetArticleRecommended`：管理员上架、下架和设置首页推荐。
+- `adminCorrectionList`、`adminCorrectionDetail`：管理员分页读取纠错和处理详情。
+- `adminResolveCorrection`：管理员更新处理状态；选择“同步修改食材”时，在同一事务中更新平台食材和纠错结果。
+
 ## feedback
 
 - `submit`：提交意见反馈，支持类型、内容、图片附件和联系方式。

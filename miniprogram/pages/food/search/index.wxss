@@ -100,3 +100,5 @@
   font-size: 26rpx;
   font-weight: 800;
 }
+
+.food-actions{display:flex;flex:none;align-items:center;gap:18rpx}.food-correct{color:var(--color-muted);font-size:22rpx}

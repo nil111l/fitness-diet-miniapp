@@ -11,6 +11,8 @@ Page({
       { title: "食谱管理", url: "/pages/admin/recipes/index" },
       { title: "动作管理", url: "/pages/admin/actions/index" },
       { title: "训练计划管理", url: "/pages/admin/workout-plans/index" },
+      { title: "文章管理", url: "/pages/admin/articles/index" },
+      { title: "食材纠错管理", url: "/pages/admin/food-corrections/index" },
       { title: "反馈管理", url: "/pages/admin/feedback/index" }
     ]
   },

@@ -1,0 +1,11 @@
+{
+  "name": "content",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test test/logic.test.js"
+  },
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

@@ -26,6 +26,7 @@ Page({
       longest_streak_days: 0
     },
     quickFoods: [],
+    recommendedArticles: [],
     macroProgress: {
       protein: 0,
       carb: 0,
@@ -47,6 +48,7 @@ Page({
       this.loadDashboard();
       this.loadQuickOptions();
     }
+    this.loadRecommendedArticles();
   },
 
   async loadDashboard() {
@@ -69,6 +71,15 @@ Page({
       this.setData({ quickFoods });
     } catch (error) {
       this.setData({ quickFoods: [] });
+    }
+  },
+
+  async loadRecommendedArticles() {
+    try {
+      const articles = await callFunction("content", { action: "recommendedArticles", limit: 2 }, { showLoading: false, silent: true });
+      this.setData({ recommendedArticles: articles || [] });
+    } catch (error) {
+      this.setData({ recommendedArticles: [] });
     }
   },
 
@@ -119,5 +130,13 @@ Page({
 
   goGoal() {
     wx.navigateTo({ url: "/pages/goal/edit/index?mode=create" });
+  },
+
+  openArticle(event) {
+    wx.navigateTo({ url: `/pages/articles/detail/index?id=${event.currentTarget.dataset.id}` });
+  },
+
+  goArticles() {
+    wx.navigateTo({ url: "/pages/articles/index" });
   }
 });

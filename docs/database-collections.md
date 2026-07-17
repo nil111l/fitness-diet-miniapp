@@ -292,13 +292,58 @@
 - `last_sent_date`
 - `last_sent_at`
 
+## health_articles
+
+健康文章。用户端只读取已上架且未删除的数据，维护操作仅允许管理员通过 `content` 云函数执行。
+
+- `title`
+- `summary`
+- `category`：`diet`、`training`、`recording`、`faq`
+- `cover_url`
+- `content`：正文段落数组
+- `status`：`active`、`inactive`
+- `is_recommended`
+- `sort_order`
+- `created_by`
+- `updated_by`
+- `created_at`
+- `updated_at`
+- `deleted_at`
+
+## food_corrections
+
+用户对平台食材提交的纠错记录。记录提交时会保存食材快照，管理员确认修改后同时保留处理结果和修改后的快照。
+
+- `user_id`
+- `openid`
+- `food_id`
+- `food_name`
+- `correction_type`：`name`、`calorie`、`protein`、`carb`、`fat`、`category`、`other`
+- `description`
+- `suggested_value`
+- `food_snapshot`
+- `status`：`pending`、`processing`、`resolved`、`rejected`
+- `admin_note`
+- `applied_food_update`
+- `food_snapshot_after`
+- `processed_by`
+- `processed_at`
+- `created_at`
+- `updated_at`
+- `deleted_at`
+
+## Phase 9 实时统计说明
+
+周总结、月总结、饮食洞察和目标进度不建立 `weekly_summaries`、`monthly_summaries` 或 `insight_rules` 持久化副本。`insights` 云函数每次按当前用户、日期范围，从 `diet_records`、`exercise_records`、`body_records`、`checkin_records` 和 `fitness_goals` 实时聚合，确保编辑或删除原始记录后结果立即一致。
+
 ## 权限建议
 
-- `health_profiles`、`fitness_goals`、`diet_records`、`exercise_records`、`body_records`、`checkin_records`、`favorite_foods`、`diet_templates`、`reminder_settings`、`recipes`、`recipe_categories`、`exercise_actions`、`workout_plans`、`user_workout_plans`、`workout_sessions`、`feedbacks`、`admin_users` 均关闭小程序端直接读写，仅由云函数访问。
+- `health_profiles`、`fitness_goals`、`diet_records`、`exercise_records`、`body_records`、`checkin_records`、`favorite_foods`、`diet_templates`、`reminder_settings`、`recipes`、`recipe_categories`、`exercise_actions`、`workout_plans`、`user_workout_plans`、`workout_sessions`、`health_articles`、`food_corrections`、`feedbacks`、`admin_users` 均关闭小程序端直接读写，仅由云函数访问。
 - 云函数从微信上下文获取 `openid`，用户私有查询和写入必须附带该 `openid` 条件。
 - `foods`、`food_categories` 的平台数据也优先通过 `food` 云函数读取，管理写操作仅允许 `admin` 云函数执行。
 - `recipes`、`recipe_categories` 的公开读取和管理写入统一通过 `recipe` 云函数；管理动作必须校验 `admin_users`，公开动作只返回 `status=active` 且未删除的数据。
 - `exercise_actions`、`workout_plans` 的用户端读取和管理写入统一通过 `workout` 云函数；管理动作必须校验 `admin_users`，用户端只返回已上架且未删除的完整内容。
+- `health_articles`、`food_corrections` 统一通过 `content` 云函数访问；用户只能读取已上架文章和自己的纠错记录，后台操作必须校验 `admin_users`。
 
 ## feedbacks
 

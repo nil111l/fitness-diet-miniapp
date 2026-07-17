@@ -1,0 +1,13 @@
+<view class="page" wx:if="{{!loading && food}}">
+  <view class="section"><text class="title">食材纠错</text><text class="subtitle">提交平台食材的数据问题，管理员核对后处理。</text></view>
+  <view class="section food-panel"><text class="food-name">{{food.name}}</text><view class="nutrition-grid"><view><text>{{food.calorie_per_100g}}</text><text>千卡</text></view><view><text>{{food.protein_per_100g}}</text><text>蛋白质 g</text></view><view><text>{{food.carb_per_100g}}</text><text>碳水 g</text></view><view><text>{{food.fat_per_100g}}</text><text>脂肪 g</text></view></view><text class="per-label">以上数据均按每 100g 计算</text></view>
+  <view class="section card form-card">
+    <view class="field"><text class="label">纠错类型 *</text><picker range="{{types}}" range-key="label" value="{{typeIndex}}" bindchange="changeType"><view class="picker-value">{{types[typeIndex].label}}</view></picker></view>
+    <view class="field"><text class="label">问题说明 *</text><textarea class="textarea" maxlength="500" value="{{description}}" placeholder="请说明哪里不准确，以及你的参考依据" bindinput="inputDescription"></textarea><text class="field-count">{{description.length}} / 500</text></view>
+    <view class="field"><text class="label">建议值或补充信息</text><input class="input" maxlength="120" value="{{suggestedValue}}" placeholder="选填，例如：116 kcal/100g" bindinput="inputSuggestedValue"/></view>
+  </view>
+  <view class="primary-button submit-button" role="button" bindtap="submit">{{submitting ? '正在提交...' : '提交纠错'}}</view>
+  <view class="history-link" role="button" bindtap="goHistory">查看我的纠错记录</view>
+</view>
+<view class="loading-state" wx:elif="{{loading}}">正在加载食材...</view>
+<view class="page" wx:else><view class="card empty"><text class="empty-title">食材暂时无法纠错</text><text class="muted-text">仅支持对仍在平台食材库中的内容提交纠错，也可以检查网络后重试。</text><view class="secondary-button retry" role="button" bindtap="loadFood">重新加载</view></view></view>

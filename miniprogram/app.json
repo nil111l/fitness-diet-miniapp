@@ -46,7 +46,19 @@
     "pages/admin/actions/index",
     "pages/admin/actions/edit/index",
     "pages/admin/workout-plans/index",
-    "pages/admin/workout-plans/edit/index"
+    "pages/admin/workout-plans/edit/index",
+    "pages/insights/weekly/index",
+    "pages/insights/monthly/index",
+    "pages/insights/diet/index",
+    "pages/insights/progress/index",
+    "pages/articles/index",
+    "pages/articles/detail/index",
+    "pages/food/correction/index",
+    "pages/food/corrections/index",
+    "pages/admin/articles/index",
+    "pages/admin/articles/edit/index",
+    "pages/admin/food-corrections/index",
+    "pages/admin/food-corrections/detail/index"
   ],
   "window": {
     "backgroundColor": "#F5F7F6",

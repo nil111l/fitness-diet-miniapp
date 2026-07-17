@@ -112,5 +112,13 @@ Page({
 
   goRecent() {
     wx.navigateTo({ url: this.data.meal ? `/pages/diet/recent/index?meal=${this.data.meal}` : "/pages/diet/recent/index" });
+  },
+
+  correctFood(event) {
+    wx.navigateTo({ url: `/pages/food/correction/index?id=${event.currentTarget.dataset.id}` });
+  },
+
+  goCorrections() {
+    wx.navigateTo({ url: "/pages/food/corrections/index" });
   }
 });

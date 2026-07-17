@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="section"><text class="title">月度总结</text><text class="subtitle">基于当月原始记录实时计算，免费查看。</text></view>
+  <view class="month-switch section"><view class="month-button" role="button" bindtap="previousMonth">‹</view><text class="month-label">{{month}}</text><view class="month-button {{canNext ? '' : 'month-button-disabled'}}" role="button" bindtap="nextMonth">›</view></view>
+  <view class="loading-state" wx:if="{{loading}}">正在汇总月度记录...</view>
+  <view class="card empty" wx:elif="{{loadFailed}}"><text class="empty-title">月度总结加载失败</text><view class="secondary-button retry" role="button" bindtap="loadSummary">重新加载</view></view>
+  <view class="card empty" wx:elif="{{summary && !summary.has_data}}"><text class="empty-title">该月还没有记录</text><text class="muted-text">可以切换其他月份，或从今天继续记录。</text><view class="primary-button retry" role="button" bindtap="goRecord">去记录</view></view>
+  <block wx:elif="{{summary}}">
+    <view class="summary-grid section">
+      <view class="metric-card"><text class="metric-label">平均摄入</text><text class="metric-number">{{summary.average_calorie}}</text><text class="metric-unit">kcal / 记录日</text></view>
+      <view class="metric-card"><text class="metric-label">运动次数</text><text class="metric-number">{{summary.exercise_count}}</text><text class="metric-unit">次</text></view>
+      <view class="metric-card"><text class="metric-label">最长连续打卡</text><text class="metric-number">{{summary.longest_checkin_days}}</text><text class="metric-unit">天</text></view>
+      <view class="metric-card"><text class="metric-label">体重变化</text><text class="metric-number small-number" wx:if="{{summary.weight.change !== null}}">{{summary.weight.change > 0 ? '+' : ''}}{{summary.weight.change}}</text><text class="metric-number small-number" wx:else>--</text><text class="metric-unit">kg</text></view>
+    </view>
+    <view class="section card macro-card">
+      <text class="section-title">营养素达标情况</text><text class="muted-text">按达到当前目标 80% 的饮食记录日计算</text>
+      <view class="macro-row"><view class="macro-head"><text>蛋白质</text><text>{{summary.macro_compliance.protein.rate}}%</text></view><view class="track"><view class="fill protein" style="width: {{summary.macro_compliance.protein.rate}}%;"></view></view></view>
+      <view class="macro-row"><view class="macro-head"><text>碳水</text><text>{{summary.macro_compliance.carb.rate}}%</text></view><view class="track"><view class="fill carb" style="width: {{summary.macro_compliance.carb.rate}}%;"></view></view></view>
+      <view class="macro-row"><view class="macro-head"><text>脂肪</text><text>{{summary.macro_compliance.fat.rate}}%</text></view><view class="track"><view class="fill fat" style="width: {{summary.macro_compliance.fat.rate}}%;"></view></view></view>
+    </view>
+    <view class="section advice-panel"><text class="advice-label">下月建议</text><text class="advice-text">{{summary.suggestion}}</text></view>
+  </block>
+</view>

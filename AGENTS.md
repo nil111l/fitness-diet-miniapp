@@ -103,6 +103,12 @@ Spec：`.agents/specs/07-recipes-meal-plans.spec.md`
 
 Spec：`.agents/specs/08-workout-plans-action-library.spec.md`
 
+### Phase 9: 数据洞察与内容运营
+
+目标：提供免费周/月总结、轻量饮食洞察、健康文章和食材纠错闭环。
+
+Spec：`.agents/specs/09-insights-content-ops.spec.md`
+
 ## 5. 第一版禁止扩展范围
 
 以下功能不要在 MVP 阶段实现，除非用户重新确认：
