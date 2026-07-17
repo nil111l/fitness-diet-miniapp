@@ -38,5 +38,13 @@ Page({
 
   goCalendar() {
     wx.navigateTo({ url: "/pages/checkin/calendar/index" });
+  },
+
+  goRecipes() {
+    wx.navigateTo({ url: "/pages/recipe/list/index" });
+  },
+
+  goMealPlan() {
+    wx.navigateTo({ url: "/pages/meal-plan/index" });
   }
 });

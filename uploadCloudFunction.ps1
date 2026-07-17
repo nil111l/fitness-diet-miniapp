@@ -19,4 +19,5 @@ param(
 & $InstallPath cloud functions deploy --e $EnvId --n body --r --project $ProjectPath
 & $InstallPath cloud functions deploy --e $EnvId --n feedback --r --project $ProjectPath
 & $InstallPath cloud functions deploy --e $EnvId --n reminder --r --project $ProjectPath
+& $InstallPath cloud functions deploy --e $EnvId --n recipe --r --project $ProjectPath
 & $InstallPath cloud functions deploy --e $EnvId --n admin --r --project $ProjectPath

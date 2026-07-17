@@ -7,6 +7,8 @@ const COLLECTIONS = {
   DIET_RECORDS: "diet_records",
   FAVORITE_FOODS: "favorite_foods",
   DIET_TEMPLATES: "diet_templates",
+  RECIPES: "recipes",
+  RECIPE_CATEGORIES: "recipe_categories",
   REMINDER_SETTINGS: "reminder_settings",
   EXERCISE_RECORDS: "exercise_records",
   BODY_RECORDS: "body_records",

@@ -8,6 +8,7 @@ Page({
       { title: "用户管理", url: "/pages/admin/users/index" },
       { title: "食材分类", url: "/pages/admin/categories/index" },
       { title: "食材管理", url: "/pages/admin/foods/index" },
+      { title: "食谱管理", url: "/pages/admin/recipes/index" },
       { title: "反馈管理", url: "/pages/admin/feedback/index" }
     ]
   },

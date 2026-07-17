@@ -24,3 +24,40 @@
   color: var(--color-muted);
   line-height: 1.5;
 }
+
+.recipe-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14rpx;
+}
+
+.recipe-tool {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 128rpx;
+  padding: 22rpx;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-deep);
+  color: #ffffff;
+}
+
+.recipe-tool-title {
+  display: block;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.recipe-tool-desc {
+  display: block;
+  margin-top: 8rpx;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 21rpx;
+  line-height: 1.45;
+}
+
+.recipe-tool-arrow {
+  margin-left: 10rpx;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 38rpx;
+}

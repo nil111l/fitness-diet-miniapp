@@ -1,0 +1,30 @@
+<view class="page admin-recipes-page">
+  <view class="admin-head">
+    <view><text class="title">食谱管理</text><text class="subtitle">维护免费食谱、展示状态和推荐顺序。</text></view>
+    <button class="small-button tag-button" bindtap="manageTags">标签管理</button>
+  </view>
+
+  <view class="search-row">
+    <input class="input search-input" value="{{keyword}}" placeholder="搜索食谱名称" bindinput="inputKeyword" confirm-type="search" bindconfirm="loadRecipes" />
+    <button class="small-button search-button" bindtap="loadRecipes">搜索</button>
+  </view>
+  <button class="primary-button create-button" bindtap="createRecipe">新增食谱</button>
+
+  <view class="recipe-list" wx:if="{{recipes.length}}">
+    <view class="admin-recipe-card" wx:for="{{recipes}}" wx:key="_id">
+      <view class="card-top">
+        <view class="card-title-wrap"><text class="list-title">{{item.name}}</text><text wx:if="{{item.is_recommended}}" class="recommend-mark">推荐</text></view>
+        <text class="status-text {{item.status === 'active' ? 'status-active' : ''}}">{{item.status === 'active' ? '已上架' : '已下架'}}</text>
+      </view>
+      <text class="muted-text">{{item.calorie}} kcal · 蛋白 {{item.protein}}g · {{item.meal_text}}</text>
+      <text class="scope-text">{{item.goal_text}} · {{item.tag_text}}</text>
+      <view class="action-row">
+        <button class="small-button" data-id="{{item._id}}" bindtap="editRecipe">编辑</button>
+        <button class="small-button" data-item="{{item}}" bindtap="toggleRecommended">{{item.is_recommended ? '取消推荐' : '设为推荐'}}</button>
+        <button class="{{item.status === 'active' ? 'danger-button' : 'small-button'}}" data-item="{{item}}" bindtap="toggleStatus">{{item.status === 'active' ? '下架' : '上架'}}</button>
+      </view>
+    </view>
+  </view>
+  <view class="card empty" wx:elif="{{!loading}}">暂无食谱，先新增一份食谱。</view>
+  <view class="loading-state" wx:if="{{loading}}">正在加载...</view>
+</view>

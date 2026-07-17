@@ -104,6 +104,44 @@
 - `carb_per_100g`
 - `fat_per_100g`
 - `note`
+- `recipe_id`：由食谱加入时记录来源食谱 ID，普通手工记录可为空。
+- `recipe_name`
+- `recipe_servings`
+
+## recipe_categories
+
+食谱筛选标签，由管理员维护。
+
+- `name`
+- `sort_order`
+- `status`：`active`、`inactive`
+
+## recipes
+
+平台免费食谱。每份营养由后台绑定的已上架平台食材按克数计算，小程序端不提交营养结果。
+
+- `name`
+- `intro`
+- `cover_url`：可选，仅支持 `https://` 或 `cloud://`
+- `goals`：`lose_weight`、`gain_muscle`、`maintain`
+- `meals`：`breakfast`、`lunch`、`dinner`、`snack`
+- `tag_ids`
+- `tags`：标签名称快照
+- `ingredients`：平台食材 ID、名称、每份重量和每百克营养快照
+- `steps`
+- `prep_time_min`
+- `difficulty`：`easy`、`medium`、`hard`
+- `calorie`
+- `protein`
+- `carb`
+- `fat`
+- `base_servings`：第一版固定为 `1`
+- `is_recommended`
+- `status`：`active`、`inactive`
+- `created_by`
+- `updated_by`
+
+一日饮食计划由 `recipe` 云函数按目标、热量区间和餐次即时匹配，不保存为用户私有集合。加入计划时会重新校验食谱和食材状态，并生成实际 `diet_records`。
 
 ## exercise_records
 
@@ -187,9 +225,10 @@
 
 ## 权限建议
 
-- `health_profiles`、`fitness_goals`、`diet_records`、`exercise_records`、`body_records`、`checkin_records`、`favorite_foods`、`diet_templates`、`reminder_settings`、`feedbacks`、`admin_users` 均关闭小程序端直接读写，仅由云函数访问。
+- `health_profiles`、`fitness_goals`、`diet_records`、`exercise_records`、`body_records`、`checkin_records`、`favorite_foods`、`diet_templates`、`reminder_settings`、`recipes`、`recipe_categories`、`feedbacks`、`admin_users` 均关闭小程序端直接读写，仅由云函数访问。
 - 云函数从微信上下文获取 `openid`，用户私有查询和写入必须附带该 `openid` 条件。
 - `foods`、`food_categories` 的平台数据也优先通过 `food` 云函数读取，管理写操作仅允许 `admin` 云函数执行。
+- `recipes`、`recipe_categories` 的公开读取和管理写入统一通过 `recipe` 云函数；管理动作必须校验 `admin_users`，公开动作只返回 `status=active` 且未删除的数据。
 
 ## feedbacks
 

@@ -153,14 +153,39 @@ async function getAllCheckins(openid) {
   return records;
 }
 
+async function getRecordsByDate(collection, openid, date) {
+  const records = [];
+  const pageSize = 100;
+  for (let page = 0; page < 50; page += 1) {
+    const result = await db.collection(collection)
+      .where({ openid, record_date: date, deleted_at: null })
+      .skip(page * pageSize)
+      .limit(pageSize)
+      .get();
+    records.push(...result.data);
+    if (result.data.length < pageSize) break;
+  }
+  return records;
+}
+
+async function getRecordsForDates(collection, openid, dates) {
+  const records = [];
+  for (let index = 0; index < dates.length; index += 1) {
+    records.push(...await getRecordsByDate(collection, openid, dates[index]));
+  }
+  return records;
+}
+
 async function dashboard(event, openid) {
   const date = event.record_date || formatDate();
   const goalResult = await db.collection("fitness_goals").where({ openid, status: "active", deleted_at: null }).limit(1).get();
   const goal = goalResult.data[0] || null;
-  const dietResult = await db.collection("diet_records").where({ openid, record_date: date, deleted_at: null }).limit(100).get();
-  const exerciseResult = await db.collection("exercise_records").where({ openid, record_date: date, deleted_at: null }).limit(100).get();
-  const records = dietResult.data;
-  const exercises = exerciseResult.data;
+  const results = await Promise.all([
+    getRecordsByDate("diet_records", openid, date),
+    getRecordsByDate("exercise_records", openid, date)
+  ]);
+  const records = results[0];
+  const exercises = results[1];
   const calorie = sum(records, "calorie");
   const exerciseCalories = sum(exercises, "calorie_burned");
   const protein = sum(records, "protein");
@@ -252,14 +277,16 @@ function buildTrend(dates, records, key, mode) {
 
 async function trends(openid) {
   const dates = lastSevenDates();
-  const fromDate = dates[0];
-  const dietResult = await db.collection("diet_records").where({ openid, deleted_at: null }).limit(700).get();
-  const exerciseResult = await db.collection("exercise_records").where({ openid, deleted_at: null }).limit(700).get();
-  const bodyResult = await db.collection("body_records").where({ openid, deleted_at: null }).limit(100).get();
-  const todayDashboard = await dashboard({ record_date: dates[6] }, openid);
-  const dietRecords = dietResult.data.filter((item) => item.record_date >= fromDate);
-  const exerciseRecords = exerciseResult.data.filter((item) => item.record_date >= fromDate);
-  const bodyRecords = bodyResult.data.filter((item) => item.record_date >= fromDate).sort((a, b) => a.record_date.localeCompare(b.record_date));
+  const results = await Promise.all([
+    getRecordsForDates("diet_records", openid, dates),
+    getRecordsForDates("exercise_records", openid, dates),
+    getRecordsForDates("body_records", openid, dates),
+    dashboard({ record_date: dates[6] }, openid)
+  ]);
+  const dietRecords = results[0];
+  const exerciseRecords = results[1];
+  const bodyRecords = results[2].sort((a, b) => a.record_date.localeCompare(b.record_date));
+  const todayDashboard = results[3];
 
   return ok({
     dates,

@@ -31,7 +31,13 @@
     "pages/diet/recent/index",
     "pages/diet/templates/index",
     "pages/diet/template-edit/index",
-    "pages/checkin/calendar/index"
+    "pages/checkin/calendar/index",
+    "pages/recipe/list/index",
+    "pages/recipe/detail/index",
+    "pages/meal-plan/index",
+    "pages/admin/recipes/index",
+    "pages/admin/recipes/edit/index",
+    "pages/admin/recipe-tags/index"
   ],
   "window": {
     "backgroundColor": "#F5F7F6",

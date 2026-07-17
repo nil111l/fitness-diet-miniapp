@@ -1,0 +1,49 @@
+<view class="page detail-page" wx:if="{{displayRecipe}}">
+  <image wx:if="{{displayRecipe.cover_url}}" class="detail-cover" mode="aspectFill" src="{{displayRecipe.cover_url}}" />
+  <view class="detail-head">
+    <view class="detail-title-line">
+      <text class="title">{{displayRecipe.name}}</text>
+      <text wx:if="{{displayRecipe.is_recommended}}" class="recommend-mark">推荐</text>
+    </view>
+    <text class="subtitle">{{displayRecipe.intro}}</text>
+    <view class="tag-line"><text wx:for="{{displayRecipe.tags}}" wx:key="*this" class="tag">{{item}}</text></view>
+  </view>
+
+  <view class="portion-bar">
+    <view><text class="section-title">营养与份量</text><text class="muted-text">按当前份量同步计算</text></view>
+    <view class="stepper">
+      <button class="stepper-button" data-delta="-0.5" bindtap="changeServings">−</button>
+      <text class="stepper-value">{{servings}} 份</text>
+      <button class="stepper-button" data-delta="0.5" bindtap="changeServings">＋</button>
+    </view>
+  </view>
+  <view class="nutrition-panel">
+    <view><text class="nutrition-value">{{displayRecipe.calorie}}</text><text class="nutrition-label">千卡</text></view>
+    <view><text class="nutrition-value">{{displayRecipe.protein}}</text><text class="nutrition-label">蛋白质 g</text></view>
+    <view><text class="nutrition-value">{{displayRecipe.carb}}</text><text class="nutrition-label">碳水 g</text></view>
+    <view><text class="nutrition-value">{{displayRecipe.fat}}</text><text class="nutrition-label">脂肪 g</text></view>
+  </view>
+
+  <view class="detail-section">
+    <view class="section-heading"><text class="section-title">食材清单</text><text class="muted-text">{{servings}} 份</text></view>
+    <view class="ingredient-row" wx:for="{{displayRecipe.ingredients}}" wx:key="food_id"><text>{{item.food_name}}</text><text class="ingredient-amount">{{item.amount_g}} g</text></view>
+  </view>
+
+  <view class="detail-section">
+    <view class="section-heading"><text class="section-title">制作步骤</text><text class="muted-text">{{displayRecipe.prep_time_min}} 分钟 · {{displayRecipe.difficulty_text}}</text></view>
+    <view class="step-row" wx:for="{{displayRecipe.steps}}" wx:key="index"><text class="step-number">{{index + 1}}</text><text class="step-text">{{item}}</text></view>
+  </view>
+
+  <view class="meal-actions">
+    <text class="section-title meal-action-title">加入今日饮食</text>
+    <button wx:for="{{mealOptions}}" wx:key="value" class="meal-button" data-meal="{{item.value}}" bindtap="addToMeal" loading="{{addingMeal === item.value}}" disabled="{{!!addingMeal}}">加入{{item.label}}</button>
+  </view>
+</view>
+<view class="loading-state" wx:elif="{{loading}}">正在加载食谱...</view>
+<view class="page" wx:elif="{{loadFailed}}">
+  <view class="card empty">
+    <text class="empty-title">食谱暂时无法打开</text>
+    <text class="muted-text">食谱可能已下架，或当前网络不可用。</text>
+    <button class="secondary-button retry-button" bindtap="retry">重新加载</button>
+  </view>
+</view>

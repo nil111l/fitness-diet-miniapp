@@ -1,0 +1,39 @@
+<view class="page plan-page">
+  <view class="plan-head">
+    <text class="title">一日饮食计划</text>
+    <text class="subtitle">根据目标和总热量区间安排早餐、午餐、晚餐和加餐。</text>
+  </view>
+
+  <view class="plan-form">
+    <view class="field">
+      <text class="label">健身目标 *</text>
+      <picker range="{{goalOptions}}" range-key="label" value="{{goalIndex}}" bindchange="changeGoal"><view class="picker-value">{{goalOptions[goalIndex].label}}</view></picker>
+    </view>
+    <view class="calorie-fields">
+      <view class="field"><text class="label">最低热量 *</text><input class="input" type="number" value="{{calorieMin}}" data-field="calorieMin" bindinput="inputCalorie" /></view>
+      <view class="field"><text class="label">最高热量 *</text><input class="input" type="number" value="{{calorieMax}}" data-field="calorieMax" bindinput="inputCalorie" /></view>
+    </view>
+    <button class="primary-button" bindtap="generatePlan" loading="{{loading}}" disabled="{{loading}}">生成今日建议</button>
+  </view>
+
+  <view wx:if="{{meals.length}}" class="plan-result">
+    <view class="plan-total">
+      <view><text class="plan-total-label">{{withinRange ? '区间内建议总热量' : '当前最接近的总热量'}}</text><text class="plan-total-value">{{total.calorie}} <text>kcal</text></text></view>
+      <view class="plan-macros"><text>蛋白 {{total.protein}}g</text><text>碳水 {{total.carb}}g</text><text>脂肪 {{total.fat}}g</text></view>
+    </view>
+    <view class="meal-card" wx:for="{{meals}}" wx:key="meal_type">
+      <view class="meal-card-main" data-id="{{item.recipe._id}}" bindtap="openRecipe">
+        <view class="meal-title-line"><text class="meal-name">{{item.meal_label}}</text><text class="meal-kcal">{{item.recipe.calorie}} kcal</text></view>
+        <text class="list-title recipe-name">{{item.recipe.name}}</text>
+        <text class="muted-text">蛋白 {{item.recipe.protein}}g · 碳水 {{item.recipe.carb}}g · 脂肪 {{item.recipe.fat}}g</text>
+      </view>
+      <button class="replace-button" data-meal="{{item.meal_type}}" bindtap="replaceMeal">换一个</button>
+    </view>
+    <button class="primary-button add-plan-button" bindtap="addToday" loading="{{adding}}" disabled="{{adding}}">一键加入今日饮食</button>
+  </view>
+
+  <view class="card empty" wx:elif="{{!loading}}">
+    <text class="empty-title">还没有生成饮食计划</text>
+    <text class="muted-text">确认目标和热量区间后，生成早餐、午餐、晚餐和加餐建议。</text>
+  </view>
+</view>

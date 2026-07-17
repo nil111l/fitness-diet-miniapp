@@ -1,14 +1,20 @@
 page {
   --color-primary: #16a05d;
   --color-primary-dark: #0e7a46;
+  --color-primary-deep: #0d5136;
+  --color-primary-soft: #eaf5ef;
+  --color-primary-tint: #f4faf6;
+  --color-success-soft: #e8f6ee;
   --color-accent-blue: #2f80ed;
   --color-warning: #f5a524;
   --color-danger: #d93025;
   --color-text: #1f2d26;
+  --color-text-secondary: #52615a;
   --color-muted: #7a8580;
   --color-border: #e4ebe7;
   --color-bg: #f5f7f6;
   --color-card: #ffffff;
+  --color-on-primary: #ffffff;
   --space-xs: 8rpx;
   --space-sm: 16rpx;
   --space-md: 24rpx;

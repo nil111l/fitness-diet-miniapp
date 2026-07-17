@@ -1,0 +1,16 @@
+<view class="page">
+  <view class="form-card card">
+    <text class="section-title">{{form._id ? '编辑标签' : '新增标签'}}</text>
+    <view class="field"><text class="label">标签名称 *</text><input class="input" value="{{form.name}}" placeholder="如：高纤维" data-field="name" bindinput="inputField" maxlength="20" /></view>
+    <view class="field"><text class="label">排序值</text><input class="input" type="number" value="{{form.sort_order}}" data-field="sort_order" bindinput="inputField" /></view>
+    <view class="form-actions"><button class="primary-button" bindtap="saveTag">保存标签</button><button wx:if="{{form._id}}" class="secondary-button" bindtap="resetForm">取消编辑</button></view>
+  </view>
+
+  <view class="tag-list" wx:if="{{tags.length}}">
+    <view class="tag-row" wx:for="{{tags}}" wx:key="_id">
+      <view><text class="list-title">{{item.name}}</text><text class="muted-text">排序 {{item.sort_order}} · {{item.status === 'active' ? '使用中' : '已停用'}}</text></view>
+      <view class="tag-actions"><button class="small-button" data-item="{{item}}" bindtap="editTag">编辑</button><button class="small-button" data-item="{{item}}" bindtap="toggleTag">{{item.status === 'active' ? '停用' : '启用'}}</button><button class="danger-button" data-item="{{item}}" bindtap="removeTag">删除</button></view>
+    </view>
+  </view>
+  <view class="loading-state" wx:if="{{loading}}">正在加载...</view>
+</view>

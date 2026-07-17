@@ -1,0 +1,57 @@
+<view class="page recipe-page">
+  <view class="recipe-head">
+    <view>
+      <text class="title">食谱推荐</text>
+      <text class="subtitle">按目标和餐次，找到今天更合适的一餐。</text>
+    </view>
+    <button class="plan-entry" bindtap="openMealPlan">一日计划</button>
+  </view>
+
+  <view class="filter-grid">
+    <picker range="{{goalOptions}}" range-key="label" value="{{goalIndex}}" bindchange="changeGoal">
+      <view class="filter-control">{{goalOptions[goalIndex].label}}</view>
+    </picker>
+    <picker range="{{mealOptions}}" range-key="label" value="{{mealIndex}}" bindchange="changeMeal">
+      <view class="filter-control">{{mealOptions[mealIndex].label}}</view>
+    </picker>
+    <picker range="{{tagOptions}}" range-key="name" value="{{tagIndex}}" bindchange="changeTag">
+      <view class="filter-control">{{tagOptions[tagIndex].name}}</view>
+    </picker>
+  </view>
+
+  <view class="recipe-list" wx:if="{{recipes.length}}">
+    <view class="recipe-card" wx:for="{{recipes}}" wx:key="_id" data-id="{{item._id}}" bindtap="openDetail">
+      <image wx:if="{{item.cover_url}}" class="recipe-cover" mode="aspectFill" src="{{item.cover_url}}" />
+      <view wx:else class="recipe-cover recipe-cover-fallback">
+        <text class="fallback-kcal">{{item.calorie}}</text>
+        <text class="fallback-unit">kcal / 份</text>
+      </view>
+      <view class="recipe-content">
+        <view class="recipe-title-line">
+          <text class="list-title">{{item.name}}</text>
+          <text wx:if="{{item.is_recommended}}" class="recommend-mark">推荐</text>
+        </view>
+        <text class="muted-text recipe-intro">{{item.intro}}</text>
+        <view class="nutrition-row">
+          <text>{{item.calorie}} 千卡</text>
+          <text>蛋白 {{item.protein}}g</text>
+          <text>碳水 {{item.carb}}g</text>
+          <text>脂肪 {{item.fat}}g</text>
+        </view>
+        <text class="recipe-scope">{{item.goal_text}} · {{item.meal_text}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card empty" wx:elif="{{loadFailed}}">
+    <text class="empty-title">食谱加载失败</text>
+    <text class="muted-text">请检查网络后重试，当前筛选条件已保留。</text>
+    <button class="secondary-button empty-action" bindtap="retry">重新加载</button>
+  </view>
+  <view class="card empty" wx:elif="{{!loading}}">
+    <text class="empty-title">暂无符合条件的食谱</text>
+    <text class="muted-text">换一个目标、餐次或标签试试。</text>
+    <button class="secondary-button empty-action" bindtap="resetFilters">重置筛选</button>
+  </view>
+  <view class="loading-state" wx:if="{{loading}}">正在准备食谱...</view>
+</view>

@@ -65,6 +65,21 @@
 - `save`：保存单类提醒时间和开关；开启前必须已由用户主动授权。
 - 定时触发：云函数每分钟检查到期提醒，同一类型同一天最多发送一次；一次性订阅发送后自动关闭。
 
+## recipe
+
+用户接口均校验当前用户为有效登录状态；食谱营养和饮食记录数据由服务端计算。
+
+- `filters`：读取可用食谱标签。
+- `list`：分页读取已上架食谱，支持 `goal`、`meal_type`、`tag_id` 筛选。
+- `detail`：读取已上架食谱详情、食材清单和制作步骤。
+- `addToMeal`：按 `servings` 将食谱食材生成到早餐、午餐、晚餐或加餐，并完成饮食打卡。
+- `mealPlan`：按 `goal`、`calorie_min`、`calorie_max` 即时生成四餐建议。
+- `replaceMeal`：在排除当前食谱后替换指定餐次。
+- `addMealPlan`：重新校验四个食谱状态后，一次生成今日四餐饮食记录。
+- `adminList`、`adminDetail`、`adminFoodOptions`：管理员分页读取食谱和可绑定的平台食材。
+- `adminSave`、`adminUpdateStatus`、`adminSetRecommended`：管理员新增、编辑、上架、下架和设置推荐。
+- `adminListTags`、`adminSaveTag`、`adminDeleteTag`：管理员维护食谱标签。
+
 ## feedback
 
 - `submit`：提交意见反馈，支持类型、内容、图片附件和联系方式。

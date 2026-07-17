@@ -1,0 +1,46 @@
+<view class="page editor-page" wx:if="{{!loading}}">
+  <view class="editor-head"><text class="title">{{recipeId ? '编辑食谱' : '新增食谱'}}</text><text class="subtitle">营养数据会根据所选平台食材和重量自动计算。</text></view>
+
+  <view class="editor-section">
+    <text class="section-title">基础信息</text>
+    <view class="field"><text class="label">食谱名称 *</text><input class="input" value="{{form.name}}" placeholder="不超过 40 个字" maxlength="40" data-field="name" bindinput="inputField" /></view>
+    <view class="field"><text class="label">简介 *</text><textarea class="textarea" value="{{form.intro}}" placeholder="说明这份食谱的特点" maxlength="200" data-field="intro" bindinput="inputField" /></view>
+    <view class="field"><text class="label">封面地址（选填）</text><input class="input" value="{{form.cover_url}}" placeholder="https:// 或 cloud://" maxlength="500" data-field="cover_url" bindinput="inputField" /></view>
+    <view class="field"><text class="label">制作时间（分钟）*</text><input class="input" type="number" value="{{form.prep_time_min}}" data-field="prep_time_min" bindinput="inputField" /></view>
+    <view class="field"><text class="label">难度 *</text><picker range="{{difficultyOptions}}" range-key="label" value="{{difficultyIndex}}" bindchange="changeDifficulty"><view class="picker-value">{{difficultyOptions[difficultyIndex].label}}</view></picker></view>
+  </view>
+
+  <view class="editor-section">
+    <text class="section-title">适合范围</text>
+    <view class="field"><text class="label">健身目标 *</text><checkbox-group class="choice-grid" data-field="goals" bindchange="changeGroup"><label wx:for="{{goalOptions}}" wx:key="value" class="choice-item"><checkbox color="#16a05d" value="{{item.value}}" checked="{{item.selected}}" />{{item.label}}</label></checkbox-group></view>
+    <view class="field"><text class="label">餐次 *</text><checkbox-group class="choice-grid" data-field="meals" bindchange="changeGroup"><label wx:for="{{mealOptions}}" wx:key="value" class="choice-item"><checkbox color="#16a05d" value="{{item.value}}" checked="{{item.selected}}" />{{item.label}}</label></checkbox-group></view>
+    <view class="field"><text class="label">标签 *</text><checkbox-group class="choice-grid" bindchange="changeTags"><label wx:for="{{tagOptions}}" wx:key="_id" class="choice-item"><checkbox color="#16a05d" value="{{item._id}}" checked="{{item.selected}}" />{{item.name}}</label></checkbox-group><text wx:if="{{!tagOptions.length}}" class="muted-text">请先到标签管理创建可用标签。</text></view>
+  </view>
+
+  <view class="editor-section">
+    <view class="section-heading"><text class="section-title">食材清单 *</text><button class="small-button" bindtap="addIngredient">添加食材</button></view>
+    <view class="ingredient-editor" wx:for="{{form.ingredients}}" wx:key="index">
+      <picker class="ingredient-picker" range="{{foods}}" range-key="name" value="{{item.food_index}}" data-index="{{index}}" bindchange="changeIngredientFood"><view class="picker-value">{{foods[item.food_index] ? foods[item.food_index].name : '请选择食材'}}</view></picker>
+      <view class="amount-wrap"><input class="input amount-input" type="digit" value="{{item.amount_g}}" data-index="{{index}}" bindinput="inputIngredientAmount" /><text>g</text></view>
+      <button class="remove-icon" data-index="{{index}}" bindtap="removeIngredient">删除</button>
+    </view>
+    <view wx:if="{{!form.ingredients.length}}" class="empty-inline">还没有食材，请添加平台食材。</view>
+  </view>
+
+  <view class="editor-section">
+    <view class="section-heading"><text class="section-title">制作步骤 *</text><button class="small-button" bindtap="addStep">添加步骤</button></view>
+    <view class="step-editor" wx:for="{{form.steps}}" wx:key="index">
+      <text class="step-index">{{index + 1}}</text>
+      <textarea class="textarea step-input" value="{{item}}" placeholder="填写这一制作步骤" maxlength="300" data-index="{{index}}" bindinput="inputStep" />
+      <button class="remove-icon" data-index="{{index}}" bindtap="removeStep">删除</button>
+    </view>
+  </view>
+
+  <view class="editor-section status-section">
+    <view class="switch-row"><view><text class="label">上架展示</text><text class="muted-text">关闭后小程序端不可见</text></view><switch color="#16a05d" checked="{{form.status === 'active'}}" bindchange="toggleStatus" /></view>
+    <view class="switch-row"><view><text class="label">设为推荐</text><text class="muted-text">推荐食谱在列表中优先展示</text></view><switch color="#16a05d" checked="{{form.is_recommended}}" bindchange="toggleRecommended" /></view>
+  </view>
+
+  <button class="primary-button save-button" bindtap="saveRecipe" loading="{{saving}}" disabled="{{saving}}">保存食谱</button>
+</view>
+<view class="loading-state" wx:else>正在加载编辑数据...</view>

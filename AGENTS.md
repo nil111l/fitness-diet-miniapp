@@ -85,6 +85,18 @@ Spec：`.agents/specs/04-profile-settings-admin.spec.md`
 
 Spec：`.agents/specs/05-acceptance-release.spec.md`
 
+### Phase 6: 留存、提醒、记录效率
+
+目标：上线后提升连续记录习惯和高频饮食记录效率。
+
+Spec：`.agents/specs/06-retention-reminders-efficiency.spec.md`
+
+### Phase 7: 食谱推荐与饮食计划
+
+目标：提供免费食谱推荐和基于目标、热量区间的简单一日饮食计划。
+
+Spec：`.agents/specs/07-recipes-meal-plans.spec.md`
+
 ## 5. 第一版禁止扩展范围
 
 以下功能不要在 MVP 阶段实现，除非用户重新确认：
@@ -164,7 +176,7 @@ Spec：`.agents/specs/05-acceptance-release.spec.md`
 
 ## 11. UI 规范
 
-后续 Phase 1-4 的页面、组件和交互样式必须遵守 `.agents/specs/ui-style.spec.md`。
+所有后续页面、组件和交互样式必须遵守 `.agents/specs/ui-style.spec.md`。
 
 - 整体风格保持清爽、健康、专业，服务健身饮食记录工具，不做营销型视觉。
 - 首页优先突出今日推荐热量、已摄入、剩余热量、运动消耗和三大营养素进度。
