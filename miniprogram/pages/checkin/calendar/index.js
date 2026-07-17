@@ -6,6 +6,10 @@ function monthOffset(month, offset) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
 }
 
+function monthLabel(month) {
+  return `${month.slice(0, 4)}年${Number(month.slice(5))}月`;
+}
+
 Page({
   data: {
     month: "",
@@ -21,7 +25,7 @@ Page({
     wx.setNavigationBarTitle({ title: "打卡日历" });
     const now = new Date();
     const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-    this.setData({ month }, () => this.loadCalendar());
+    this.setData({ month, monthLabel: monthLabel(month) }, () => this.loadCalendar());
   },
 
   async loadCalendar() {
@@ -36,7 +40,7 @@ Page({
       const days = result.days.map((item) => Object.assign({}, item, { key: item.date }));
       this.setData({
         month: result.month,
-        monthLabel: `${result.month.slice(0, 4)}年${Number(result.month.slice(5))}月`,
+        monthLabel: monthLabel(result.month),
         cells: blanks.concat(days),
         currentStreak: result.current_streak_days,
         longestStreak: result.longest_streak_days
@@ -47,10 +51,14 @@ Page({
   },
 
   previousMonth() {
-    this.setData({ month: monthOffset(this.data.month, -1) }, () => this.loadCalendar());
+    if (this.data.loading) return;
+    const month = monthOffset(this.data.month, -1);
+    this.setData({ month, monthLabel: monthLabel(month), cells: [] }, () => this.loadCalendar());
   },
 
   nextMonth() {
-    this.setData({ month: monthOffset(this.data.month, 1) }, () => this.loadCalendar());
+    if (this.data.loading) return;
+    const month = monthOffset(this.data.month, 1);
+    this.setData({ month, monthLabel: monthLabel(month), cells: [] }, () => this.loadCalendar());
   }
 });

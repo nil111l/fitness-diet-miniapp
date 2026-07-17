@@ -19,9 +19,13 @@
 
   <view class="section card calendar-card">
     <view class="month-nav">
-      <button class="icon-button" aria-label="上个月" bindtap="previousMonth">‹</button>
+      <view class="month-button {{loading ? 'disabled' : ''}}" role="button" aria-label="上个月" hover-class="month-button-pressed" bindtap="previousMonth">
+        <text class="month-arrow">‹</text>
+      </view>
       <text class="month-title">{{monthLabel}}</text>
-      <button class="icon-button" aria-label="下个月" bindtap="nextMonth">›</button>
+      <view class="month-button {{loading ? 'disabled' : ''}}" role="button" aria-label="下个月" hover-class="month-button-pressed" bindtap="nextMonth">
+        <text class="month-arrow">›</text>
+      </view>
     </view>
     <view class="weekday-row">
       <text wx:for="{{weekdays}}" wx:key="*this" class="weekday">{{item}}</text>
