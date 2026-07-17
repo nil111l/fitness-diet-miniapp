@@ -1,4 +1,5 @@
 <view class="page me-page">
+  <!-- Phase 6 仅追加记录工具，保留原有个人中心结构和入口。 -->
   <view class="profile-hero">
     <view class="profile-main">
       <image class="avatar" src="{{user && user.avatar_url ? user.avatar_url : '/images/avatar.png'}}" mode="aspectFill"></image>
@@ -33,6 +34,16 @@
     <view class="menu-row" wx:for="{{menuItems}}" wx:key="title" bindtap="goPage" data-url="{{item.url}}">
       <text class="menu-title">{{item.title}}</text>
       <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="section retention-section">
+    <text class="retention-label">记录工具</text>
+    <view class="menu-card retention-card">
+      <view class="menu-row" wx:for="{{retentionItems}}" wx:key="title" bindtap="goPage" data-url="{{item.url}}">
+        <text class="menu-title">{{item.title}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
     </view>
   </view>
 

@@ -146,6 +146,23 @@
   box-shadow: 0 12rpx 32rpx rgba(24, 54, 40, 0.06);
 }
 
+.retention-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.retention-label {
+  padding-left: 6rpx;
+  color: #7a8580;
+  font-size: 23rpx;
+  font-weight: 600;
+}
+
+.retention-card {
+  width: 100%;
+}
+
 .menu-row {
   display: flex;
   align-items: center;

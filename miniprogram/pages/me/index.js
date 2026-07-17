@@ -25,11 +25,13 @@ Page({
       { title: "意见反馈", desc: "提交问题或建议", url: "/pages/feedback/index" }
     ],
     menuItems: [
-      { title: "记录提醒", url: "/pages/reminders/index" },
-      { title: "打卡日历", url: "/pages/checkin/calendar/index" },
       { title: "用户协议", url: "/pages/agreement/index" },
       { title: "隐私政策", url: "/pages/privacy/index" },
       { title: "设置", url: "/pages/settings/index" }
+    ],
+    retentionItems: [
+      { title: "记录提醒", url: "/pages/reminders/index" },
+      { title: "打卡日历", url: "/pages/checkin/calendar/index" }
     ]
   },
 

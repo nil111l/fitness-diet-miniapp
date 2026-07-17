@@ -133,11 +133,32 @@
           <text class="quick-food-meta">{{item.default_amount_g || item.last_amount_g || 100}}g · 去记录</text>
         </view>
       </view>
-      <view wx:else class="quick-empty" bindtap="goAddDiet">添加第一条饮食后，可在这里快速复用</view>
+      <view wx:else class="quick-empty" bindtap="goAddDiet">
+        <text class="quick-empty-title">还没有快捷记录</text>
+        <text class="quick-empty-desc">添加饮食后，这里会显示最近常用食物</text>
+      </view>
       <view class="quick-links">
-        <button class="quick-link" bindtap="goFavorites">常吃食物</button>
-        <button class="quick-link" bindtap="goRecent">最近记录</button>
-        <button class="quick-link" bindtap="goTemplates">饮食模板</button>
+        <view class="quick-link" hover-class="quick-link-active" aria-role="button" aria-label="进入常吃食物" bindtap="goFavorites">
+          <view class="quick-link-copy">
+            <text class="quick-link-title">常吃食物</text>
+            <text class="quick-link-desc">快速选择常用食物</text>
+          </view>
+          <text class="quick-link-arrow">›</text>
+        </view>
+        <view class="quick-link" hover-class="quick-link-active" aria-role="button" aria-label="进入最近记录" bindtap="goRecent">
+          <view class="quick-link-copy">
+            <text class="quick-link-title">最近记录</text>
+            <text class="quick-link-desc">带入最近一次重量</text>
+          </view>
+          <text class="quick-link-arrow">›</text>
+        </view>
+        <view class="quick-link" hover-class="quick-link-active" aria-role="button" aria-label="进入饮食模板" bindtap="goTemplates">
+          <view class="quick-link-copy">
+            <text class="quick-link-title">饮食模板</text>
+            <text class="quick-link-desc">一次添加整套餐次</text>
+          </view>
+          <text class="quick-link-arrow">›</text>
+        </view>
       </view>
     </view>
 
